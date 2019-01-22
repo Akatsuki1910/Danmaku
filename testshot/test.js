@@ -1,17 +1,18 @@
 var i=100;
-var p=100;
+var p=30;
 var dir = 60;
 
-var x = window.innerWidth - 100;
-var y = window.innerHeight - 100;
+var x = window.innerWidth - 50;
+var y = window.innerHeight - 50;
 
 var shot = 0;
+var disp = 0;
 var flg=true;
 
 // Object Definition
 var Max_object = 500;
-var objnum= 50;
-var obj_Agi = 10;
+var objnum= 7;
+var obj_Agi = 2;
 var obj_Xspeed = [];
 var obj_Yspeed = [];
 var obj_Size = [];
@@ -32,8 +33,8 @@ function shoot( displacement ){
         obj_Size[(k+obj_Final)%Max_object] = p;
         obj_Xpost[(k+obj_Final)%Max_object] = x/2;
         obj_Ypost[(k+obj_Final)%Max_object] = y/2;
-        obj_Xspeed[(k+obj_Final)%Max_object] = 50*Math.cos(Math.PI*2/objnum*k + displacement);
-        obj_Yspeed[(k+obj_Final)%Max_object] = 50*Math.sin(Math.PI*2/objnum*k + displacement);
+        obj_Xspeed[(k+obj_Final)%Max_object] = 10*Math.cos(Math.PI*2/objnum*k + displacement);
+        obj_Yspeed[(k+obj_Final)%Max_object] = 10*Math.sin(Math.PI*2/objnum*k + displacement);
         obj_expired[(k+obj_Final)%Max_object] = 0;
         obj_follow[(k+obj_Final)%Max_object] = 1;
     }
@@ -84,9 +85,11 @@ function divadd(){
 
 function game(){
     bullet();
-    if( shot % obj_Agi == 0) shoot( shot*3 );
-    shot++;
+    if( shot % obj_Agi == 0) shoot( shot );
+    // disp++;
+    shot+=1;
     anim();
 }
 
-window.setInterval( game , 50);
+window.setInterval( game , 10 );
+
