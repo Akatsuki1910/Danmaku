@@ -1,38 +1,18 @@
 var width = window.innerWidth;
 var height = window.innerHeight;
-
+var x = window.innerWidth/2;
+var y = window.innerHeight/2;
 var stage = new Konva.Stage({
     container: 'container',
     width: width,
     height: height
 });
-
 var layer = new Konva.Layer();
-
-var circle = [];
-
-var p=120;
-
-for(var i=0;i<p;i++){
-    circle[i] = new Konva.Circle({
-    x: 220,
-    y: 75,
-    radius: 5,
-    fill: 'yellow',
-    //stroke: 'black',
-    //strokeWidth: 4,
-    //draggable: true,
-    });
-    layer.add(circle[i]);
-}
-
 stage.add(layer);
-
+//#################################
+var circle = [];
+var p=120;//object
 var add=0;
-var x = window.innerWidth/2;
-var y = window.innerHeight/2;
-var mox=0;
-var moy=0;
 var cou=0;
 var anim = new Konva.Animation(function(frame) {
     var j=0;
@@ -46,26 +26,33 @@ var anim = new Konva.Animation(function(frame) {
     }
     var a=0;
     var b=0;
-    if(cou==p){b=p;addobj(a,b);add=-5*2;}
+    if(cou==p){b=p;des(circle,a,b);addobjCircle(a,b,5,"yellow");add=-5*2;}
     add+=5*2;
     cou=0;
 }, layer);
 
-function addobj(min,max){
+function addobjCircle(min,max,rad,color){
     for(var i=min;i<max-min;i++){
-        circle[i].destroy();
         circle[i] = new Konva.Circle({
             x: x,
             y: y,
-            radius: 5,
-            fill: 'yellow',
-            //stroke: 'black',
-            //strokeWidth: 4,
-            //draggable: true,
-            });
+            radius: rad,
+            fill: color
+        });
     }
-
-    for(i=min;i<max-min;i++){layer.add(circle[i]);}
+    for(i=min;i<max-min;i++){layadd(circle[i]);}
 }
+
+function des(obj,min,max){
+    for(var i=min;i<max-min;i++){
+        if(obj[i]){obj[i].destroy();}
+    }
+}
+
+function layadd(obj){
+    layer.add(obj);
+}
+
+addobj(0,p,5,"yellow");
 
 anim.start();
