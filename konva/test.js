@@ -27,15 +27,12 @@ document.addEventListener('keydown', (event) => {
     var y = circle[1].getY();
     switch(event.keyCode){
         case 37://left
-            x--;
             player(--x,y);
             break;
         case 38://up
-            y--;
             player(x,--y);
             break;
         case 39://right
-            x++;
             player(++x,y);
             break;
         case 40://down
