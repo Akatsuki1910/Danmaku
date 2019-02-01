@@ -24,22 +24,22 @@ function player(x,y){
     circle[0][1].setY(y-3);
 }
 
-var move_speed = 2;
+var move_speed = 1;
 document.addEventListener('keydown', (event) => {
     var player_key_x = circle[0][0].getX();
     var player_key_y = circle[0][0].getY();
     switch(event.keyCode){
         case 37://left
-            player(--player_key_x,player_key_y);
+            player(player_key_x-=move_speed,player_key_y);
             break;
         case 38://up
-            player(player_key_x,--player_key_y);
+            player(player_key_x,player_key_y-=move_speed);
             break;
         case 39://right
-            player(++player_key_x,player_key_y);
+            player(player_key_x+=move_speed,player_key_y);
             break;
         case 40://down
-            player(player_key_x,++player_key_y);
+            player(player_key_x,player_key_y+=move_speed);
             break;
     }
 });
@@ -52,7 +52,7 @@ var anim = new Konva.Animation(function(frame) {
     xmove = Math.floor(x+Math.cos(((180)*(Math.PI/180)))*add);
     circle[1][0].setX(xmove);
     circle[1][1].setX(xmove-3);
-    if(rgb_po(circle,0,5)==1){xmove=-1;}
+    if(hitcheck(circle,1,5)==1){xmove=-1;}
     if(xmove<0){
         add=0;
     }else{
@@ -99,47 +99,22 @@ addobjCircle(1,1,5,"blue",x,y);
 
 anim.start();
 
-function rgb_po(obj,p,r){
+function hitcheck(obj,p,rad){
     var point=0;
-    var r_end=Math.floor(r*Math.cos(45*(Math.PI/180)));
-    var obj_x = Math.floor(obj[p][0].getX());
-    var obj_y = Math.floor(obj[p][0].getY());
-    var xpo,ypo,rgb_point;
-    //up
-    for(var i=0;i<r_end;i++){
-        xpo = obj_x-r_end+i;
-        ypo = obj_y-r_end;
-        rgb_point = rgbcheck(xpo,ypo);
-        if(rgb_point==1){point=1;break;}
-    }
-    //end
-    for(var i=0;i<r_end;i++){
-        xpo = obj_x-r_end+i;
-        ypo = obj_y+r_end;
-        rgb_point = rgbcheck(xpo,ypo);
-        if(rgb_point==1){point=1;break;}
-    }
-    //side
-    for(var l=1;l<r_end-1;l++){
-        for(var i=0;i<2;i++){
-            xpo = obj_x-r_end+r_end*2*i;
-            ypo = obj_y-r_end+l;
-            rgb_point = rgbcheck(xpo,ypo);
-            if(rgb_point==1){point=1;break;}
+    var minx = Math.floor(obj[0][0].getX()-rad);
+    var maxx = Math.floor(obj[0][0].getX()+rad);
+    var miny = Math.floor(obj[0][0].getY()-rad);
+    var maxy = Math.floor(obj[0][0].getY()+rad);
+    for(var i=1;i<=p;i++){
+        var shot_minx = Math.floor(obj[p][0].getX()-rad);
+        var shot_maxx = Math.floor(obj[p][0].getX()+rad);
+        var shot_miny = Math.floor(obj[p][0].getY()-rad);
+        var shot_maxy = Math.floor(obj[p][0].getY()+rad);
+        if((minx<shot_maxx && maxx>shot_minx) && (miny<shot_maxy && maxy>shot_miny)){
+            point=1;
+            break;
         }
     }
+
     return point;
 }
-
-var rgbcheck = function(x,y){
-    var imagedata = context.getImageData(x, y, 1, 1);
-    var r = imagedata.data[0];
-    var g = imagedata.data[1];
-    var b = imagedata.data[2];
-    if((r==255 && g==0 && b==0) || (r==0 && g==0 && b==0)){
-        return 0;
-    }else{
-        console.log(r+" "+g+" "+b);
-        return 1;
-    }
-};
