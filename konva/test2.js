@@ -1,3 +1,4 @@
+//don't move
 var width = window.innerWidth;
 var height = window.innerHeight;
 var x = window.innerWidth/2;
@@ -18,6 +19,8 @@ var context = obj.getContext('2d');
 var player = [[],[]];
 //#################################
 
+//player
+var move_speed = 1;
 function playermove(x,y){
     player[0][0].setX(x);
     player[0][0].setY(y);
@@ -25,26 +28,42 @@ function playermove(x,y){
     player[0][1].setY(y-3);
 }
 
-var move_speed = 3;
-document.addEventListener('keydown', (event) => {
+var keyPressed = [];
+var keyBind = [37, 38, 39, 40];
+
+function playerMoveMain(event){
     var player_key_x = player[0][0].getX();
     var player_key_y = player[0][0].getY();
-    switch(event.keyCode){
-        case 37://left
-            playermove(player_key_x-=move_speed,player_key_y);
-            break;
-        case 38://up
-            playermove(player_key_x,player_key_y-=move_speed);
-            break;
-        case 39://right
-            playermove(player_key_x+=move_speed,player_key_y);
-            break;
-        case 40://down
-            playermove(player_key_x,player_key_y+=move_speed);
-            break;
+    switch(event){
+        //left
+        case 37:playermove(player_key_x-=move_speed,player_key_y);break;
+        //up
+        case 38:playermove(player_key_x,player_key_y-=move_speed);break;
+        //right
+        case 39:playermove(player_key_x+=move_speed,player_key_y);break;
+        //down
+        case 40:playermove(player_key_x,player_key_y+=move_speed);break;
     }
-});
+}
 
+document.onkeydown = function (e) {keyPressed[e.keyCode] = true;};
+document.onkeyup = function (e) {keyPressed[e.keyCode] = false;};
+window.onblur = function (e) {keyPressed.length = 0;};
+
+function exec(){
+    for (var i = 0; i < keyBind.length; ++i) {
+        if (keyPressed[keyBind[i]]) {
+            playerMoveMain(keyBind[i]);
+        }
+    }
+}
+
+var Interval;
+clearInterval(Interval);
+Interval = setInterval(exec, 17);//60fps
+//#########################################
+
+//enemy
 var circle = [[],[]];
 var p=2;//object
 var add=0;
