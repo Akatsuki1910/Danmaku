@@ -13,7 +13,8 @@ stage.add(layer);
 window.onresize = function () {
     location.reload();
 };
-var player = [[],[]];
+var player = [];
+var enemy = [];
 //#################################
 
 //player
@@ -62,42 +63,76 @@ Interval = setInterval(exec, 17);//60fps
 
 //enemy
 var circle = [];
-var obj_shot=36;//object
+var obj_shot=60;//object
+var u = 4;//number
 var add = (new Array(1000)).fill(0);//0
 var xmove , ymove;
 var move = (new Array(1000)).fill(1);//0
 var anim = new Konva.Animation(function(frame) {
     var l = 0;
     var hitflg=false;
-    for(var t=0;t<3;t++){
+    for(var t=0;t<u;t++){
         hitflg=false;
         for(var i=0;i<360;i+=(360/obj_shot)){
-            xmove = x+Math.cos(((i)*(Math.PI/180)))*(add[t]-t*50);
-            ymove = y+Math.sin(((i)*(Math.PI/180)))*(add[t]-t*50);
-            circle[l][0].setX(xmove);
-            circle[l][1].setX(xmove-3);
-            circle[l][0].setY(ymove);
-            circle[l][1].setY(ymove-3);
+            var sx = circle[l][0].getX();
+            var sy = circle[l][0].getY();
+            xmove = sx+Math.cos(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(move[l]*0.5*(t+1));
+            ymove = sy+Math.sin(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(move[l]*0.5*(t+1));
+            objset(l,xmove,ymove,circle,3);
+            if(circle[l][0].getX()>x*2 || circle[l][0].getX()<0 || circle[l][0].getY()>y*2 || circle[l][0].getY()<0){
+                move[l]*=-1;
+            }
+            if(hitcheck(circle,enemy,l,l+1,5)==1){
+                if(circle[l][0].fill()=="red"){
+                    changecolor(circle,l,l+1,"blue");
+                }
+            }
+            if(hitcheck(circle,player,l,l+1,5)==1){
+                hitflg=true;
+                changecolor(circle,l,l+1,"red");
+            }
             l++;
         }
-        if(hitcheck(circle,obj_shot*t,obj_shot*(t+1),5)==1){
+        /*
+        if(hitcheck(circle,player,obj_shot*t,obj_shot*(t+1),5)==1){
             hitflg=true;
             changecolor(circle,obj_shot*t,obj_shot*(t+1),"red");
         }
-        if(hitflg || circle[obj_shot*t][0].getX()>x*2){
-            move[t]=-1;
-        }else if(circle[obj_shot*t][0].getX()<x){
-            move[t]=1;
-            if(circle[obj_shot*t][0].fill()=="red"){
-                changecolor(circle,obj_shot*t,obj_shot*(t+1),"blue");
+        if(hitflg){
+            move.fill(1,obj_shot*t,obj_shot*(t+1));
+            for(var i=0;i<obj_shot*u;i++){
+                objset(i,x,y,circle,3);
             }
         }
-        add[t]+=move[t];
+        */
     }
 }, layer);
 
+function addenemy(mas,num,rad,color,x,y){
+    for(var i=mas;i<num+mas;i++){
+        enemy[i]= [];
+        enemy[i][0] = new Konva.Circle({
+            x: x,
+            y: y,
+            radius: rad,
+            fill: color
+        });
+        hit_rad=Math.floor(rad*Math.cos(45*(Math.PI/180)));
+        enemy[i][1] = new Konva.Rect({
+            x: x-hit_rad,
+            y: y-hit_rad,
+            width: hit_rad*2,
+            height: hit_rad*2,
+            fill: color
+        });
+        layadd(enemy[i][0]);
+        layadd(enemy[i][1]);
+    }
+}
+
 function addplayer(mas,num,rad,color,x,y){
     for(var i=mas;i<num+mas;i++){
+        player[i]= [];
         player[i][0] = new Konva.Circle({
             x: x,
             y: y,
@@ -152,18 +187,19 @@ function layadd(obj){
     layer.add(obj);
 }
 
+addenemy(0,1,10,"yellow",x,y);
 addplayer(0,1,5,"red",x,y+200);
-addobj(0,obj_shot*3,5,"blue",x,y,circle);
+addobj(0,obj_shot*u,5,"blue",x,y,circle);
 
 anim.start();
 
-function hitcheck(obj,p,q,rad){
+function hitcheck(obj,tar,p,q,rad){
     rad=rad/2+1;
     var point=0;
-    var minx = player[0][0].getX()-rad;
-    var maxx = player[0][0].getX()+rad;
-    var miny = player[0][0].getY()-rad;
-    var maxy = player[0][0].getY()+rad;
+    var minx = tar[0][0].getX()-rad;
+    var maxx = tar[0][0].getX()+rad;
+    var miny = tar[0][0].getY()-rad;
+    var maxy = tar[0][0].getY()+rad;
     for(var i=p;i<q;i++){
         var shot_minx = obj[i][0].getX()-rad;
         var shot_maxx = obj[i][0].getX()+rad;
@@ -183,4 +219,11 @@ function changecolor(obj,min,max,col){
         obj[i][0].fill(col);
         obj[i][1].fill(col);
     }
+}
+
+function objset(num,x,y,obj,sub){
+    obj[num][0].setX(x);
+    obj[num][1].setX(x-sub);
+    obj[num][0].setY(y);
+    obj[num][1].setY(y-sub);
 }
