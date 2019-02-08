@@ -10,10 +10,11 @@ var stage = new Konva.Stage({
 });
 var layer = new Konva.Layer();
 stage.add(layer);
-window.addEventListener('resize', function() {
+window.onresize = function () {
     location.reload();
-}, false);
-$('canvas').attr('id', 'can');
+};
+var tmp = document.getElementsByClassName("konvajs-content");
+tmp[0].setAttribute("id","can");
 var obj = document.getElementById("can");
 var context = obj.getContext('2d');
 var player = [[],[]];
