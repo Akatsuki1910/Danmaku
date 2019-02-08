@@ -13,10 +13,6 @@ stage.add(layer);
 window.onresize = function () {
     location.reload();
 };
-var tmp = document.getElementsByClassName("konvajs-content");
-tmp[0].setAttribute("id","can");
-var obj = document.getElementById("can");
-var context = obj.getContext('2d');
 var player = [[],[]];
 //#################################
 
