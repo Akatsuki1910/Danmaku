@@ -17,3 +17,7 @@ konva.js
 CreateJS  
 EaselJS  
 WebGL  
+
+希望  
+CreateJS + pixi.js  
+https://ics.media/entry/5140
