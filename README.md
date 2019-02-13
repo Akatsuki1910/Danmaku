@@ -40,3 +40,7 @@ git merge upstream/master
 ## 他にも
 
 markdown形式に従ってみるのも面白い
+markdownlint さんが ビシビシ指導してくれますよ
+
+markdownlint :  
+<https://github.com/DavidAnson/markdownlint>
