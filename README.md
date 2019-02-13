@@ -21,3 +21,13 @@ WebGL
 希望  
 CreateJS + pixi.js  
 https://ics.media/entry/5140
+
+# 個人用メモ（nishionyama）
+
+fork したレポジトリが最新版に追いつかないなら
+```git
+git remote add upsatream https://github.com/~~~
+git fetch upstream
+git merge upstream/master
+```
+で最新版に追いつくことができる。
