@@ -8,7 +8,7 @@ https://akatsuki1910.github.io/PlayGround/konva/test.html
 開発途中
 https://akatsuki1910.github.io/PlayGround/konva/test2.html
 
-ダメだったもの 
+ダメだったもの  
 css 
 jQuery 
 konva.js  
