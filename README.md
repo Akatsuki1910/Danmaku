@@ -1,17 +1,20 @@
+
 # PlayGround
 
-canvasとかやってられるか
+## 概要
 
-latest
-https://akatsuki1910.github.io/PlayGround/konva/test.html
+~~canvasとかやってられるか~~
 
-開発途中
-https://akatsuki1910.github.io/PlayGround/konva/test2.html
+latest  
+<https://akatsuki1910.github.io/PlayGround/konva/test.html>
+
+開発途中  
+<https://akatsuki1910.github.io/PlayGround/konva/test2.html>
 
 ダメだったもの  
 css  
 jQuery  
-konva.js   
+konva.js
 
 触る予定  
 CreateJS  
@@ -20,14 +23,20 @@ WebGL
 
 希望  
 CreateJS + pixi.js  
-https://ics.media/entry/5140
+<https://ics.media/entry/5140>
 
-# 個人用メモ（nishionyama）
+## 個人用メモ（nishionyama）
 
 fork したレポジトリが最新版に追いつかないなら
+
 ```git
 git remote add upsatream https://github.com/~~~
 git fetch upstream
 git merge upstream/master
 ```
+
 で最新版に追いつくことができる。
+
+## 他にも
+
+markdown形式に従ってみるのも面白い
