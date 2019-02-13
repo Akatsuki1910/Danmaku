@@ -9,11 +9,11 @@ https://akatsuki1910.github.io/PlayGround/konva/test.html
 https://akatsuki1910.github.io/PlayGround/konva/test2.html
 
 ダメだったもの  
-css 
-jQuery 
-konva.js  
+css  
+jQuery  
+konva.js   
 
-触る予定 
-CreateJS 
-EaselJS 
-WebGL 
+触る予定  
+CreateJS  
+EaselJS  
+WebGL  
