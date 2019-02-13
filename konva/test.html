@@ -1,15 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta charset="UTF-8">
-    <title>test</title>
-    <link rel="stylesheet" href="test.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <script src="jquery-3.3.1.min.js"></script>
+    <script>
+        var id='sound-file'
+        var audio_key;
+        var n=0;
+        function sound(){
+            audio_key = new Audio();
+            audio_key.src = "nc45985.wav";
+            audio_key.play();
+            n++;
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if(n==0){
+                switch(event.keyCode){
+                    case 13:sound();change(1);break;
+                }
+                console.log(event.keyCode);
+            }
+        });
+        document.addEventListener('keyup', (event) => {
+            switch(event.keyCode){
+                case 13:off();change(2);break;
+            }
+        });
+
+        function change(num){
+            switch(num){
+                case 1:
+                document.getElementById("ch").innerHTML="ON";
+                break;
+                case 2:
+                document.getElementById("ch").innerHTML="OFF";
+                break;
+            }
+        }
+
+        function off(){
+            audio_key.pause();
+            if( typeof( audio_key.currentTime ) != 'undefined' )
+            {
+            	audio_key.currentTime = 0;
+            }
+            n=0;
+        }
+    </script>
 </head>
 <body>
-    <script src="../konva.min.js"></script>
-    <div id="container"></div>
-    <script src="test.js"></script>
+    <!-- テキストボタンの場合 -->
+<div id="ch">OFF</div>
+<!-- 音声ファイルの読み込み 9〜10行目にURLを指定 -->
+<audio id="sound-file" preload="auto">
+	<source src="nc45985.wav" type="audio/wav">
+</audio>
 </body>
 </html>
