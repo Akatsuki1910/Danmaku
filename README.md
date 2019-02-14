@@ -21,3 +21,7 @@ WebGL
 希望  
 CreateJS + pixi.js  
 https://ics.media/entry/5140
+
+拡張的な何か  
+p2.js  
+https://blog.applibot.co.jp/2017/09/06/p2-js/
