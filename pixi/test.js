@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 //don't move
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -61,10 +62,7 @@ var move_flg=4;
 function playerMoveMain(event){
     var player_key_x = player[0][0].x;
     var player_key_y = player[0][0].y;
-    if(player_key_x-move_speed<0){move_flg=0;}
-    else if(player_key_y-move_speed<0){move_flg=1;}
-    else if(player_key_x+move_speed>x*2){move_flg=2;}
-    else if(player_key_y+move_speed>y*2){move_flg=3;}
+    playerkey(player_key_x,player_key_y,move_speed,move_speed);
     switch(event){
         //left
         case 37:playermove(player_key_x-=move_speed,player_key_y);break;
@@ -91,7 +89,41 @@ function exec(){
 
 var Interval;
 clearInterval(Interval);
-Interval = setInterval(exec, 1000/60);//60fps
+Interval = setInterval(exec, 1000/120);//120fps
+
+//player mouse
+var movex;
+var movey;
+$("#pixiview").on("mousedown touchstart",(event)=>{
+    movex = event.offsetX;
+    movey = event.offsetY;
+    onpointmain();
+});
+
+function onpointmain(){
+    $("#pixiview").on("mousemove",(event)=>{onpointmove(event);});
+    $("#pixiview").on("mouseleave",()=>{$("#pixiview").unbind("mouseup mousemove mouseleave");});
+    $("#pixiview").on("mouseup",()=>{$("#pixiview").unbind("mouseup mousemove mouseleave");});
+    $("#pixiview").on("mousemove",(event)=>{onpointmove(event);});
+    $("#pixiview").on("mouseleave",()=>{$("#pixiview").unbind("mouseend mousemove mouseleave");});
+    $("#pixiview").on("mouseend",()=>{$("#pixiview").unbind("mouseend mousemove mouseleave");});
+}
+
+function onpointmove(event){
+    var player_key_x = player[0][0].x;
+    var player_key_y = player[0][0].y;
+    playerkey(player_key_x,player_key_y,-event.offsetY+movey,event.offsetY-movey);
+    playermove(player_key_x+event.offsetX-movex,player_key_y+event.offsetY-movey);
+    movex=event.offsetX;
+    movey=event.offsetY;
+}
+
+function playerkey(playx,playy,min,max){
+    if(playx-min<0){move_flg=0;}
+    else if(playy-min<0){move_flg=1;}
+    else if(playx+max>x*2){move_flg=2;}
+    else if(playy+max>y*2){move_flg=3;}
+}
 //#########################################
 
 //enemy
