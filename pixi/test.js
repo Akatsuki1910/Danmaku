@@ -3,40 +3,41 @@ var width = window.innerWidth;
 var height = window.innerHeight;
 var x = window.innerWidth/2;
 var y = window.innerHeight/2;
-var stage = new Konva.Stage({
-    container: 'container',
-    width: width,
-    height: height
+var stage = new PIXI.Stage();
+var renderer = PIXI.autoDetectRenderer(width, height,{
+    resolution: window.devicePixelRatio,
+    backgroundColor: 0x000000,
+    antialias: true
 });
-var layer = new Konva.Layer();
-stage.add(layer);
+document.getElementById("pixiview").appendChild(renderer.view);
 window.onresize = function () {
     location.reload();
 };
 var player = [];
 var enemy = [];
-var canvas = document.createElement('canvas');
-var context = canvas.getContext('2d');
-context.globalCompositeOperation = 'destination-over';
 //#################################
+
+//被弾回数
+var word = "0";
+var style = {font:'bold 40pt Arial', fill:'white'};
+var textobj = new PIXI.Text(word, style);
+stage.addChild(textobj);
 
 //player
 var move_speed = 1;
 function playermove(mox,moy){
-    player[0][0].setX(mox);
-    player[0][0].setY(moy);
-    player[0][1].setX(mox-3);
-    player[0][1].setY(moy-3);
-    var over_x = player[0][0].getX();
-    var over_y = player[0][0].getY();
+    player[0][0].x = mox;
+    player[0][0].y = moy;
+    var over_x = player[0][0].x;
+    var over_y = player[0][0].y;
     switch(move_flg){
         case 0:
-            over_x+=(0-over_x+1);
+            over_x+=(-1*over_x+1);
             move_flg=4;
             playermove(over_x,over_y);
             break;
         case 1:
-            over_y+=(0-over_y+1);
+            over_y+=(-1*over_y+1);
             move_flg=4;
             playermove(over_x,over_y);
             break;
@@ -58,8 +59,8 @@ var keyBind = [37, 38, 39, 40];
 var move_flg=4;
 
 function playerMoveMain(event){
-    var player_key_x = player[0][0].getX();
-    var player_key_y = player[0][0].getY();
+    var player_key_x = player[0][0].x;
+    var player_key_y = player[0][0].y;
     if(player_key_x-move_speed<0){move_flg=0;}
     else if(player_key_y-move_speed<0){move_flg=1;}
     else if(player_key_x+move_speed>x*2){move_flg=2;}
@@ -100,85 +101,72 @@ var u = 4;//number
 var add = (new Array(1000)).fill(0);//0
 var xmove , ymove;
 var move = (new Array(1000)).fill(1);//0
-var anim = new Konva.Animation(function() {
+function animate(){
+    requestAnimationFrame(animate);
     var l = 0;
     for(var t=0;t<u;t++){
         for(var i=0;i<360;i+=(360/obj_shot)){
-            var sx = circle[l][0].getX();
-            var sy = circle[l][0].getY();
+            var sx = circle[l][0].x;
+            var sy = circle[l][0].y;
             xmove = sx+Math.cos(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(move[l]*0.5*(t+1));
             ymove = sy+Math.sin(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(move[l]*0.5*(t+1));
             objset(l,xmove,ymove,circle,3);
-            if(circle[l][0].getX()>x*2 || circle[l][0].getX()<0 || circle[l][0].getY()>y*2 || circle[l][0].getY()<0){
+            if(circle[l][0].x>x*2 || circle[l][0].x<0 || circle[l][0].y>y*2 || circle[l][0].y<0){
                 move[l]*=-1;
             }
             if(hitcheck(circle,enemy,l,l+1,5)==1){
-                if(circle[l][0].fill()=="red"){
-                    changecolor(circle,l,l+1,"blue");
+                if(colorX(circle[l][0].fillColor)=="ff0000"){
+                    changecolor(circle,l,l+1,"0x0000ff",5);
                 }
             }
             if(hitcheck(circle,player,l,l+1,5)==1){
-                changecolor(circle,l,l+1,"red");
+                if(colorX(circle[l][0].fillColor)!="ff0000"){
+                    changecolor(circle,l,l+1,"0xff0000",5);
+                    textobj.text++;
+                }
             }
             l++;
         }
     }
-}, layer);
+    renderer.render(stage);
+}
 
 function addenemy(mas,num,rad,color,x,y){
     for(var i=mas;i<num+mas;i++){
         enemy[i]= [];
-        enemy[i][0] = new Konva.Circle({
-            x: x,
-            y: y,
-            radius: rad,
-            fill: color
-        });
-        hit_rad=Math.floor(rad*Math.cos(45*(Math.PI/180)));
-        enemy[i][1] = new Konva.Rect({
-            x: x-hit_rad,
-            y: y-hit_rad
-        });
-        layadd(enemy[i][0]);
-        //layadd(enemy[i][1]);
+        enemy[i][0] = new PIXI.Graphics();
+        enemy[i][0].beginFill(color, 1);
+        enemy[i][0].drawCircle(0,0,rad);
+        enemy[i][0].endFill();
+        stage.addChild(enemy[i][0]);
+        enemy[i][0].x=x;
+        enemy[i][0].y=y;
     }
 }
 
 function addplayer(mas,num,rad,color,x,y){
     for(var i=mas;i<num+mas;i++){
         player[i]= [];
-        player[i][0] = new Konva.Circle({
-            x: x,
-            y: y,
-            radius: rad,
-            fill: color
-        });
-        hit_rad=Math.floor(rad*Math.cos(45*(Math.PI/180)));
-        player[i][1] = new Konva.Rect({
-            x: x-hit_rad,
-            y: y-hit_rad
-        });
-        layadd(player[i][0]);
-        //layadd(player[i][1]);
+        player[i][0] = new PIXI.Graphics();
+        player[i][0].beginFill(color, 1);
+        player[i][0].drawCircle(0,0,rad);
+        player[i][0].endFill();
+        stage.addChild(player[i][0]);
+        player[i][0].x=x;
+        player[i][0].y=y;
     }
 }
 
 function addobj(mas,num,rad,color,x,y,obj){
     for(var i=mas;i<num+mas;i++){
         obj[i] = [];
-        obj[i][0] = new Konva.Circle({
-            x: x,
-            y: y,
-            radius: rad,
-            fill: color
-        });
-        hit_rad=Math.floor(rad*Math.cos(45*(Math.PI/180)));
-        obj[i][1] = new Konva.Rect({
-            x: x-hit_rad,
-            y: y-hit_rad
-        });
-        layadd(obj[i][0]);
-        //layadd(obj[i][1]);
+        obj[i][0] = new PIXI.Graphics();
+        obj[i][0].beginFill(color, 1);
+        obj[i][0].drawCircle(0,0,rad);
+        obj[i][0].endFill();
+        stage.addChild(obj[i][0]);
+        obj[i][0].x=x;
+        obj[i][0].y=y;
     }
 }
 
@@ -186,33 +174,28 @@ function des(obj,mas,num){
     for(var i=mas;i<num+mas;i++){
         if(obj[i][0]){
             obj[i][0].destroy();
-            obj[i][1].destroy();
         }
     }
 }
 
-function layadd(obj){
-    layer.add(obj);
-}
+addenemy(0,1,10,"0xffff00",x,y);
+addplayer(0,1,5,"0xff00ff",x,y+200);
+addobj(0,obj_shot*u,5,"0x0000ff",x,y,circle);
 
-addenemy(0,1,10,"yellow",x,y);
-addplayer(0,1,5,"red",x,y+200);
-addobj(0,obj_shot*u,5,"blue",x,y,circle);
-
-anim.start();
+requestAnimationFrame(animate);
 
 function hitcheck(obj,tar,p,q,rad){
     rad=rad/2+1;
     var point=0;
-    var minx = tar[0][0].getX()-rad;
-    var maxx = tar[0][0].getX()+rad;
-    var miny = tar[0][0].getY()-rad;
-    var maxy = tar[0][0].getY()+rad;
+    var minx = tar[0][0].x-rad;
+    var maxx = tar[0][0].x+rad;
+    var miny = tar[0][0].y-rad;
+    var maxy = tar[0][0].y+rad;
     for(var i=p;i<q;i++){
-        var shot_minx = obj[i][0].getX()-rad;
-        var shot_maxx = obj[i][0].getX()+rad;
-        var shot_miny = obj[i][0].getY()-rad;
-        var shot_maxy = obj[i][0].getY()+rad;
+        var shot_minx = obj[i][0].x-rad;
+        var shot_maxx = obj[i][0].x+rad;
+        var shot_miny = obj[i][0].y-rad;
+        var shot_maxy = obj[i][0].y+rad;
         if((minx<shot_maxx && maxx>shot_minx) && (miny<shot_maxy && maxy>shot_miny)){
             point=1;
             break;
@@ -222,16 +205,23 @@ function hitcheck(obj,tar,p,q,rad){
     return point;
 }
 
-function changecolor(obj,min,max,col){
+function changecolor(obj,min,max,col,rad){
     for(var i=min;i<max;i++){
-        obj[i][0].fill(col);
-        obj[i][1].fill(col);
+        var obx=obj[i][0].x;
+        var oby=obj[i][0].y;
+        obj[i][0].clear();
+        obj[i][0].beginFill(col);
+        obj[i][0].drawCircle(0,0,rad);
+        obj[i][0].x=obx;
+        obj[i][0].y=oby;
     }
 }
 
-function objset(num,x,y,obj,sub){
-    obj[num][0].setX(x);
-    obj[num][1].setX(x-sub);
-    obj[num][0].setY(y);
-    obj[num][1].setY(y-sub);
+function objset(num,x,y,obj){
+    obj[num][0].x=x;
+    obj[num][0].y=y;
+}
+
+function colorX(obj){
+    return ('0000000000' + obj).slice(-6);
 }

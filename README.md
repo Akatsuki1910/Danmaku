@@ -5,8 +5,8 @@
 
 ~~canvasとかやってられるか~~
 
-latest  
-<https://akatsuki1910.github.io/PlayGround/konva/test.html>
+latest
+<https://akatsuki1910.github.io/PlayGround/pixi/test.html>
 
 開発途中  
 <https://akatsuki1910.github.io/PlayGround/konva/test2.html>
@@ -20,6 +20,10 @@ konva.js
 CreateJS  
 EaselJS  
 WebGL  
+
+拡張的な何か  
+p2.js  
+<https://blog.applibot.co.jp/2017/09/06/p2-js/>
 
 希望  
 CreateJS + pixi.js  
