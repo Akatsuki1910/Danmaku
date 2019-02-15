@@ -15,10 +15,11 @@ window.onresize = function () {
 };
 var player = [];
 var enemy = [];
+
 //#################################
 
 //player
-var move_speed = 3;
+var move_speed = 1;
 function playermove(x,y){
     player[0][0].setX(x);
     player[0][0].setY(y);
@@ -58,15 +59,16 @@ function exec(){
 
 var Interval;
 clearInterval(Interval);
-Interval = setInterval(exec, 17);//60fps
+Interval = setInterval(exec, 1);//60fps
 //#########################################
 
 //enemy
 var circle = [];
-var obj_shot=60;//object
-var u = 4;//number
+var obj_shot=12;//object
+var u = 24;//number
 var add = (new Array(1000)).fill(0);//0
-var xmove , ymove;
+var xmove = (new Array(1000)).fill(1);
+var ymove = (new Array(1000)).fill(1); 
 var move = (new Array(1000)).fill(1);//0
 var anim = new Konva.Animation(function(frame) {
     var l = 0;
@@ -76,14 +78,20 @@ var anim = new Konva.Animation(function(frame) {
         for(var i=0;i<360;i+=(360/obj_shot)){
             var sx = circle[l][0].getX();
             var sy = circle[l][0].getY();
-            xmove = sx+Math.cos(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(move[l]*0.5*(t+1));
-            ymove = sy+Math.sin(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(move[l]*0.5*(t+1));
-            objset(l,xmove,ymove,circle,3);
-            if(circle[l][0].getX()>x*2 || circle[l][0].getX()<0 || circle[l][0].getY()>y*2 || circle[l][0].getY()<0){
-                move[l]*=-1;
+            var xmover;
+            var ymover;
+            if(circle[l][0].getX()>x*2 || circle[l][0].getX()<0){
+                xmove[l] *= -1;
+            } 
+            if(circle[l][0].getY()>y*2 || circle[l][0].getY()<0){
+                ymove[l] *= -1;
             }
-            if(hitcheck(circle,enemy,l,l+1,5)==1){
-                if(circle[l][0].fill()=="red"){
+            xmover = sx+Math.cos(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(xmove[l]*0.5*(t*3+1));
+            ymover = sy+Math.sin(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(ymove[l]*0.5*(t*3+1));            
+            objset(l,xmover,ymover,circle,3);
+            
+            if(circle[l][0].fill()=="red"){
+                if(hitcheck(circle,enemy,l,l+1,5)==1){
                     changecolor(circle,l,l+1,"blue");
                 }
             }
@@ -107,6 +115,7 @@ var anim = new Konva.Animation(function(frame) {
         */
     }
 }, layer);
+
 
 function addenemy(mas,num,rad,color,x,y){
     for(var i=mas;i<num+mas;i++){
@@ -189,7 +198,7 @@ function layadd(obj){
 
 addenemy(0,1,10,"yellow",x,y);
 addplayer(0,1,5,"red",x,y+200);
-addobj(0,obj_shot*u,5,"blue",x,y,circle);
+addobj(0,obj_shot*u,5,"lightblue",x,y,circle);
 
 anim.start();
 
@@ -214,6 +223,7 @@ function hitcheck(obj,tar,p,q,rad){
     return point;
 }
 
+// obj[[min,max)]のいろをcolへ
 function changecolor(obj,min,max,col){
     for(var i=min;i<max;i++){
         obj[i][0].fill(col);
