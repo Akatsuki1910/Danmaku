@@ -17,6 +17,12 @@ var player = [];
 var enemy = [];
 //#################################
 
+//被弾回数
+var word = "0";
+var style = {font:'bold 40pt Arial', fill:'white'};
+var textobj = new PIXI.Text(word, style);
+stage.addChild(textobj);
+
 //player
 var move_speed = 1;
 function playermove(mox,moy){
@@ -114,7 +120,10 @@ function animate(){
                 }
             }
             if(hitcheck(circle,player,l,l+1,5)==1){
-                changecolor(circle,l,l+1,"0xff0000",5);
+                if(colorX(circle[l][0].fillColor)!="ff0000"){
+                    changecolor(circle,l,l+1,"0xff0000",5);
+                    textobj.text++;
+                }
             }
             l++;
         }
