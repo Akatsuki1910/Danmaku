@@ -33,7 +33,7 @@ var keyshift = false;
 var keyBind = [37, 38, 39, 40 ,90];
 var move_flg=4;
 var count=0;
-var move_speed_main = 1;
+var move_speed_main = 2;
 function playerMoveMain(event){
     var player_key_x = player[0][0].x;
     var player_key_y = player[0][0].y;
@@ -61,9 +61,7 @@ $(document).on("keyup",(e)=>{
     if(e.keyCode==16){keyshift=false;}
     keyPressed[e.keyCode] = false;
 });
-$(window).on("blur",()=>{
-    keyPressed.length = 0;
-});
+$(window).on("blur",()=>{keyPressed.length = 0;});
 
 function exec(){
     for (var i = 0; i < keyBind.length; ++i) {
@@ -91,9 +89,6 @@ function onpointmain(){
     $("#pixiview").on("mousemove",(event)=>{onpointmove(event);});
     $("#pixiview").on("mouseleave",()=>{$("#pixiview").unbind("mouseup mousemove mouseleave");});
     $("#pixiview").on("mouseup",()=>{$("#pixiview").unbind("mouseup mousemove mouseleave");});
-    $("#pixiview").on("mousemove",(event)=>{onpointmove(event);});
-    $("#pixiview").on("mouseleave",()=>{$("#pixiview").unbind("mouseend mousemove mouseleave");});
-    $("#pixiview").on("mouseend",()=>{$("#pixiview").unbind("mouseend mousemove mouseleave");});
 }
 
 function onpointmove(event){
@@ -140,8 +135,8 @@ function playershotmove(){
         objset(i,sx,ymove,player_shot);
         if(hitcheck(player_shot,enemy,i,i+1,3,10)==1){
             if(player_shot[i][1]==0){
-                console.log("ok");
                 hpobj.text++;
+                decHP(enemy,0,1,"0x000000",10+hpcircle);
                 player_shot[i][1]=1;
             }
         }

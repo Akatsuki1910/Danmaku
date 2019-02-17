@@ -3,17 +3,47 @@
 var circle = [];
 var obj_shot=60;//object
 var u = 4;//number
+var pi = Math.PI/180;
+var enemyhp = 200;
+var hpcircle;
 
 function addenemy(mas,num,rad,color,x,y){
     for(var i=mas;i<num+mas;i++){
         enemy[i]= [];
+        //enemy main
         enemy[i][0] = new PIXI.Graphics();
         enemy[i][0].beginFill(color, 1);
         enemy[i][0].drawCircle(0,0,rad);
         enemy[i][0].endFill();
-        stage.addChild(enemy[i][0]);
         enemy[i][0].x=x;
         enemy[i][0].y=y;
+        //HP
+        hpcircle = 5;
+        enemy[i][3] = new PIXI.Graphics();
+        enemy[i][3].beginFill("0xff00ff", 1);
+        enemy[i][3].drawCircle(0,0,rad+hpcircle);
+        enemy[i][3].endFill();
+        stage.addChild(enemy[i][3]);
+        enemy[i][3].x=enemy[i][0].x;
+        enemy[i][3].y=enemy[i][0].y;
+        //hole
+        enemy[i][2] = new PIXI.Graphics();
+        enemy[i][2].beginFill("0x000000", 1);
+        enemy[i][2].drawCircle(0,0,rad+hpcircle-2);
+        enemy[i][2].endFill();
+        stage.addChild(enemy[i][2]);
+        enemy[i][2].x=enemy[i][0].x;
+        enemy[i][2].y=enemy[i][0].y;
+        //gage
+        enemy[i][1] = new PIXI.Graphics();
+        enemy[i][1].beginFill("0x000000", 1);
+        enemy[i][1].arc(0,0,rad+hpcircle,-pi*0,-pi*(Number(hpobj.text)), true);
+        enemy[i][1].endFill();
+        stage.addChild(enemy[i][1]);
+        enemy[i][1].x=enemy[i][0].x;
+        enemy[i][1].y=enemy[i][0].y;
+        //enemy main
+        stage.addChild(enemy[i][0]);
     }
 }
 
@@ -61,6 +91,18 @@ function hitcheck(obj,tar,p,q,orad,trad){
     }
 
     return point;
+}
+
+function decHP(obj,min,max,col,rad){
+    for(var i=min;i<max;i++){
+        var pi = Math.PI/180;
+        obj[i][1].clear();
+        obj[i][1].beginFill(col, 1);
+        obj[i][1].arc(0,0,rad,-pi*0,-pi*(360*Number(hpobj.text)/enemyhp), true);
+        obj[i][1].lineTo(0,0);
+        obj[i][1].x=obj[i][0].x;
+        obj[i][1].y=obj[i][0].y;
+    }
 }
 
 function changecolor(obj,min,max,col,rad){
