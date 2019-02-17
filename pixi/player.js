@@ -38,7 +38,7 @@ function playerMoveMain(event){
     var player_key_x = player[0][0].x;
     var player_key_y = player[0][0].y;
     if(keyshift){move_speed=move_speed_main/2;}else{move_speed=move_speed_main;}
-    playerkey(player_key_x,player_key_y,move_speed,move_speed);
+    playerkey(player_key_x,player_key_y,move_speed,move_speed,event);
     switch(event){
         //left
         case 37:playermove(player_key_x-=move_speed,player_key_y);break;
@@ -72,6 +72,19 @@ function exec(){
     if(count==10){count=0;}else{count++;}
 }
 
+function playerkey(playx,playy,min,max,event){
+    switch(event){
+        //left
+        case 37:if(playx-min<0){move_flg=0;}break;
+        //up
+        case 38:if(playy-min<0){move_flg=1;}break;
+        //right
+        case 39:if(playx+max>x*2){move_flg=2;}break;
+        //down
+        case 40:if(playy+max>y*2){move_flg=3;}break;
+    }
+}
+
 var Interval;
 clearInterval(Interval);
 Interval = setInterval(exec, 1000/120);//120fps
@@ -94,13 +107,13 @@ function onpointmain(){
 function onpointmove(event){
     var player_key_x = player[0][0].x;
     var player_key_y = player[0][0].y;
-    playerkey(player_key_x,player_key_y,-event.offsetY+movey,event.offsetY-movey);
+    playermouse(player_key_x,player_key_y,-event.offsetY+movey,event.offsetY-movey);
     playermove(player_key_x+event.offsetX-movex,player_key_y+event.offsetY-movey);
     movex=event.offsetX;
     movey=event.offsetY;
 }
 
-function playerkey(playx,playy,min,max){
+function playermouse(playx,playy,min,max){
     if(playx-min<0){move_flg=0;}
     else if(playy-min<0){move_flg=1;}
     else if(playx+max>x*2){move_flg=2;}
