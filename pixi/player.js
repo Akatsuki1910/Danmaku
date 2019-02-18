@@ -37,7 +37,7 @@ var move_speed_main = 2;
 function playerMoveMain(event){
     var player_key_x = player[0][0].x;
     var player_key_y = player[0][0].y;
-    if(keyshift){move_speed=move_speed_main/2;}else{move_speed=move_speed_main;}
+    if(keyshift){move_speed=move_speed_main/4;}else{move_speed=move_speed_main;}
     playerkey(player_key_x,player_key_y,move_speed,move_speed,event);
     switch(event){
         //left
