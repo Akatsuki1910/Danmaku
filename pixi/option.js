@@ -15,7 +15,7 @@ window.onresize = function () {
 };
 var player = [];
 var enemy = [];
-var enemyhp = 1000;
+var enemyhp = 100;
 //#################################
 
 var mojimainx = 240;
@@ -72,10 +72,15 @@ function endgame(){
     clearobj.y=y-50;
     stage.addChild(clearobj);
     var word = "SCORE";
-    word+=" "+(10000-fpsobj.text*(hitobj.text+0.01));
+    var score = (10000-fpsobj.text*(hitobj.text+0.01));
+    word+=" "+orgRound(score,5);
     var style = {font:'bold 40pt Arial', fill:'white'};
     var scoremainobj = new PIXI.Text(word, style);
     scoremainobj.x=x-200;
     scoremainobj.y=y+10;
     stage.addChild(scoremainobj);
+}
+
+function orgRound(value, base) {
+    return Math.round(((value+'0000000000').slice(0,10))*Math.pow(10,base))/Math.pow(10,base);
 }
