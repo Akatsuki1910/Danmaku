@@ -15,7 +15,7 @@ window.onresize = function () {
 };
 var player = [];
 var enemy = [];
-var enemyhp = 10;
+var enemyhp = 1000;
 //#################################
 
 var mojimainx = 240;
