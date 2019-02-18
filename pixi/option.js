@@ -5,7 +5,7 @@ var x = width/2;
 var y = height/2;
 var stage = new PIXI.Stage();
 var renderer = PIXI.autoDetectRenderer(width, height,{
-    resolution: window.devicePixelRatio,
+    resolution: 1,
     antialias: true,
     transparent: true,
 });
