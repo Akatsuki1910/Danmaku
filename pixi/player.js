@@ -148,9 +148,11 @@ function playershotmove(){
         objset(i,sx,ymove,player_shot);
         if(hitcheck(player_shot,enemy,i,i+1,3,10)==1){
             if(player_shot[i][1]==0){
-                hpobj.text++;
+                hpobj.text--;
+                if(hpobj.text==0){endflg=false;}
                 decHP(enemy,0,1,"0x000000",10+hpcircle);
-                player_shot[i][1]=1;
+                player_shot[i][0].destroy();
+                player_shot.splice(i, 1);
             }
         }
         if(ymove<0){

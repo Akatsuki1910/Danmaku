@@ -1,7 +1,8 @@
 var xmove , ymove;
 var move = (new Array(1000)).fill(1);//0
+var endflg = true;
 function animate(){
-    requestAnimationFrame(animate);
+    if(endflg){requestAnimationFrame(animate);}else{endgame();}
     var l = 0;
     for(var t=0;t<u;t++){
         for(var i=0;i<360;i+=(360/obj_shot)){
@@ -28,7 +29,12 @@ function animate(){
         }
     }
     playershotmove();
+    effectmain();
+    rendererThree.render(scene, camera);
     renderer.render(stage);
+
+    time++;
+    fpsobj.text=time/100;
 }
 
-requestAnimationFrame(animate);
+animate();

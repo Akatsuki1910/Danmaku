@@ -4,7 +4,6 @@ var circle = [];
 var obj_shot=60;//object
 var u = 4;//number
 var pi = Math.PI/180;
-var enemyhp = 200;
 var hpcircle;
 
 function addenemy(mas,num,rad,color,x,y){
@@ -98,7 +97,7 @@ function decHP(obj,min,max,col,rad){
         var pi = Math.PI/180;
         obj[i][1].clear();
         obj[i][1].beginFill(col, 1);
-        obj[i][1].arc(0,0,rad,-pi*0,-pi*(360*Number(hpobj.text)/enemyhp), true);
+        obj[i][1].arc(0,0,rad,-pi*0,-pi*(360*(enemyhp-hpobj.text)/enemyhp), true);
         obj[i][1].lineTo(0,0);
         obj[i][1].x=obj[i][0].x;
         obj[i][1].y=obj[i][0].y;
