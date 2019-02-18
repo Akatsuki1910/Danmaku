@@ -36,7 +36,7 @@ function addenemy(mas,num,rad,color,x,y){
         //gage
         enemy[i][1] = new PIXI.Graphics();
         enemy[i][1].beginFill("0x000000", 1);
-        enemy[i][1].arc(0,0,rad+hpcircle,-pi*0,-pi*(Number(hpobj.text)), true);
+        enemy[i][1].arc(0,0,rad+hpcircle,-pi*0,pi*(360), true);
         enemy[i][1].endFill();
         stage.addChild(enemy[i][1]);
         enemy[i][1].x=enemy[i][0].x;
