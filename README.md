@@ -3,7 +3,7 @@
 canvasとかやってられるか
 
 latest
-https://akatsuki1910.github.io/PlayGround/pixi/test.html
+https://akatsuki1910.github.io/PlayGround/pixi/main.html
 
 開発途中
 https://akatsuki1910.github.io/PlayGround/konva/test2.html
