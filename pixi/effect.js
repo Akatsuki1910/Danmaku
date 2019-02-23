@@ -1,7 +1,9 @@
 /*jshint esversion: 6 */
-var geometry=[];
-var material=[];
+var p=0;
 var box=[];
+var group1=new THREE.Group();
+var group2=new THREE.Group();
+var group3=new THREE.Group();
 
 // レンダラーを作成
 const rendererThree = new THREE.WebGLRenderer({
@@ -12,43 +14,128 @@ rendererThree.setSize(width, height);
 // シーンを作成
 const scene = new THREE.Scene();
 // カメラを作成
-const camera = new THREE.PerspectiveCamera(45, width / height);
+const camera = new THREE.PerspectiveCamera(60, width / height);
 camera.position.set(0, 0, +1000);
-// 箱を作成
-geometry[0] = new THREE.TorusGeometry( 200, 30, 20, 100, Math.PI*2);
-material[0] = new THREE.MeshLambertMaterial( { color: 0x008866, wireframe:true} );
-box[0] = new THREE.Mesh(geometry[0], material[0]);
-scene.add(box[0]);
-geometry[1] = new THREE.TorusGeometry( 200, 30, 20, 100, Math.PI*2);
-material[1] = new THREE.MeshLambertMaterial( { color: 0x008866, wireframe:true} );
-box[1] = new THREE.Mesh(geometry[1], material[1]);
-scene.add(box[1]);
-box[1].rotation.x+=Math.PI/4;
-geometry[2] = new THREE.TorusGeometry( 200, 30, 20, 100, Math.PI*2);
-material[2] = new THREE.MeshLambertMaterial( { color: 0x008866, wireframe:true} );
-box[2] = new THREE.Mesh(geometry[2], material[2]);
-scene.add(box[2]);
-box[2].rotation.y+=Math.PI/2;
-geometry[3] = new THREE.TorusGeometry( 200, 30, 20, 100, Math.PI*2);
-material[3] = new THREE.MeshLambertMaterial( { color: 0x008866, wireframe:true} );
-box[3] = new THREE.Mesh(geometry[3], material[3]);
-scene.add(box[3]);
-box[3].rotation.x-=Math.PI/4;
-geometry[4] = new THREE.CubeGeometry( 200, 200, 200, 10, 10, 10);
-material[4] = new THREE.MeshLambertMaterial( { color: 0x008866, wireframe:true } );
-box[4] = new THREE.Mesh(geometry[4], material[4]);
-scene.add(box[4]);
+// object
+for(var i=0;i<2;i++){
+	var geometry = new THREE.RingBufferGeometry(400-i*300, 500-i*300, 200);
+	var edges = new THREE.EdgesGeometry(geometry);
+	var material = new THREE.LineBasicMaterial({
+		color: 0x008866,
+		side: THREE.DoubleSide,
+	});
+	box[i] = new THREE.LineSegments(edges,material);
+	group1.add(box[i]);
+}
+p=i;
+var circlenum=28;
+for(var i=p;i<p+circlenum;i++){
+	var geometry = new THREE.CircleBufferGeometry(50, 200, 0, Math.PI*2);
+	var edges = new THREE.EdgesGeometry(geometry);
+	var material = new THREE.LineBasicMaterial({
+		color: 0x008866,
+		side: THREE.DoubleSide,
+	});
+	box[i] = new THREE.LineSegments(edges,material);
+	box[i].position.x=Math.cos((i-p)*(Math.PI)*2/circlenum)*(450);
+	box[i].position.y=Math.sin((i-p)*(Math.PI)*2/circlenum)*(450);
+	group2.add(box[i]);
+}
+p=i;
+for(var i=p;i<p+circlenum;i++){
+	var geometry = new THREE.CircleGeometry( 50, 3 );
+	var edges = new THREE.EdgesGeometry(geometry);
+	var material = new THREE.LineBasicMaterial({
+		color: 0x008866,
+		side: THREE.DoubleSide,
+	});
+	box[i] = new THREE.LineSegments(edges,material);
+	box[i].position.x=Math.cos((i-p)*(Math.PI)*2/circlenum)*(450);
+	box[i].position.y=Math.sin((i-p)*(Math.PI)*2/circlenum)*(450);
+	box[i].rotation.z=(i-p)*(Math.PI)*2/circlenum;
+	group2.add(box[i]);
+}
+p=i;
+for(var i=p;i<p+circlenum;i++){
+	var geometry = new THREE.CircleGeometry( 50, 3 );
+	var edges = new THREE.EdgesGeometry(geometry);
+	var material = new THREE.LineBasicMaterial({
+		color: 0x008866,
+		side: THREE.DoubleSide,
+	});
+	box[i] = new THREE.LineSegments(edges,material);
+	box[i].position.x=Math.cos((i-p)*(Math.PI)*2/circlenum)*(450);
+	box[i].position.y=Math.sin((i-p)*(Math.PI)*2/circlenum)*(450);
+	box[i].rotation.z=(i-p)*(Math.PI)*2/circlenum+(Math.PI);
+	group2.add(box[i]);
+}
+p=i;
+circlenum=9;
+for(var i=p;i<p+circlenum;i++){
+	var geometry = new THREE.CircleBufferGeometry(50, 200, 0, Math.PI*2);
+	var edges = new THREE.EdgesGeometry(geometry);
+	var material = new THREE.LineBasicMaterial({
+		color: 0x008866,
+		side: THREE.DoubleSide,
+	});
+	box[i] = new THREE.LineSegments(edges,material);
+	box[i].position.x=Math.cos((i-p)*(Math.PI)*2/circlenum)*(150);
+	box[i].position.y=Math.sin((i-p)*(Math.PI)*2/circlenum)*(150);
+	group2.add(box[i]);
+}
+p=i;
+for(var i=p;i<p+circlenum;i++){
+	var geometry = new THREE.CircleGeometry( 50, 3 );
+	var edges = new THREE.EdgesGeometry(geometry);
+	var material = new THREE.LineBasicMaterial({
+		color: 0x008866,
+		side: THREE.DoubleSide,
+	});
+	box[i] = new THREE.LineSegments(edges,material);
+	box[i].position.x=Math.cos((i-p)*(Math.PI)*2/circlenum)*(150);
+	box[i].position.y=Math.sin((i-p)*(Math.PI)*2/circlenum)*(150);
+	box[i].rotation.z-=(i-p)*(Math.PI)*2/circlenum;
+	group2.add(box[i]);
+}
+p=i;
+for(var i=p;i<p+circlenum;i++){
+	var geometry = new THREE.CircleGeometry( 50, 3 );
+	var edges = new THREE.EdgesGeometry(geometry);
+	var material = new THREE.LineBasicMaterial({
+		color: 0x008866,
+		side: THREE.DoubleSide,
+	});
+	box[i] = new THREE.LineSegments(edges,material);
+	box[i].position.x=Math.cos((i-p)*(Math.PI)*2/circlenum)*(150);
+	box[i].position.y=Math.sin((i-p)*(Math.PI)*2/circlenum)*(150);
+	box[i].rotation.z-=(i-p)*(Math.PI)*2/circlenum+(Math.PI);
+	group2.add(box[i]);
+}
+p=i;
+circlenum=4;
+for(var i=p;i<p+circlenum;i++){
+	var geometry = new THREE.CircleGeometry(400,4);
+	var edges = new THREE.EdgesGeometry(geometry);
+	var material = new THREE.LineBasicMaterial({
+		color: 0x008866,
+		side: THREE.DoubleSide,
+	});
+	box[i] = new THREE.LineSegments(edges,material);
+	box[i].rotation.z=(i-p)*(Math.PI)/circlenum/2;
+	group3.add(box[i]);
+}
+p=i;
+
+
+scene.add(group1);
+scene.add(group2);
+scene.add(group3);
 
 var light = new THREE.DirectionalLight(0xffffff);
 light.position.set(0, 0, 2).normalize();
 scene.add(light);
 
 function effectmain() {
-    for(var i=0;i<box.length-1;i++){
-        box[i].rotation.y += 0.01;
-        box[++i].rotation.x += 0.01;
-    }
-    box[i].rotation.x+=0.01;
-    box[i].rotation.y+=0.01;
-    box[i].rotation.z+=0.01;
+    group2.rotation.z+=0.01;
+	group3.rotation.z-=0.01;
 }
