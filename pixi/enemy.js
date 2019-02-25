@@ -22,7 +22,6 @@ function addenemy(mas,num,rad,color,x,y){
         enemy[i][3].beginFill("0xff00ff", 1);
         enemy[i][3].drawCircle(0,0,rad+hpcircle);
         enemy[i][3].endFill();
-        stage.addChild(enemy[i][3]);
         enemy[i][3].x=enemy[i][0].x;
         enemy[i][3].y=enemy[i][0].y;
         //hole
@@ -30,7 +29,6 @@ function addenemy(mas,num,rad,color,x,y){
         enemy[i][2].beginFill("0x000000", 1);
         enemy[i][2].drawCircle(0,0,rad+hpcircle-2);
         enemy[i][2].endFill();
-        stage.addChild(enemy[i][2]);
         enemy[i][2].x=enemy[i][0].x;
         enemy[i][2].y=enemy[i][0].y;
         //gage
@@ -38,11 +36,8 @@ function addenemy(mas,num,rad,color,x,y){
         enemy[i][1].beginFill("0x000000", 1);
         enemy[i][1].arc(0,0,rad+hpcircle,-pi*0,pi*(360), true);
         enemy[i][1].endFill();
-        stage.addChild(enemy[i][1]);
         enemy[i][1].x=enemy[i][0].x;
         enemy[i][1].y=enemy[i][0].y;
-        //enemy main
-        stage.addChild(enemy[i][0]);
     }
 }
 
@@ -53,17 +48,9 @@ function addobj(mas,num,rad,color,x,y,obj){
         obj[i][0].beginFill(color, 1);
         obj[i][0].drawCircle(0,0,rad);
         obj[i][0].endFill();
-        stage.addChild(obj[i][0]);
+
         obj[i][0].x=x;
         obj[i][0].y=y;
-    }
-}
-
-function des(obj,mas,num){
-    for(var i=mas;i<num+mas;i++){
-        if(obj[i][0]){
-            obj[i][0].destroy();
-        }
     }
 }
 
@@ -123,4 +110,16 @@ function objset(num,x,y,obj){
 
 function colorX(obj){
     return ('0000000000' + obj).slice(-6);
+}
+
+function enemystart(obj){
+    for(var i=0;i<obj.length;i++){
+        stage.addChild(obj[i][0]);
+    }
+
+    for(var a=0;a<enemy.length;a++){
+        for(var b=enemy[a].length-1;b>=0;b--){
+            stage.addChild(enemy[a][b]);
+        }
+    }
 }

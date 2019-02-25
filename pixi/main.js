@@ -36,5 +36,3 @@ function animate(){
     time++;
     fpsobj.text=time/100;
 }
-
-animate();

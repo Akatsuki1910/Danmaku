@@ -171,10 +171,15 @@ function addplayer(mas,num,rad,color,x,y){
         player[i][0].beginFill(color, 1);
         player[i][0].drawCircle(0,0,rad);
         player[i][0].endFill();
-        stage.addChild(player[i][0]);
         player[i][0].x=x;
         player[i][0].y=y;
     }
 }
 
 addplayer(0,1,5,"0xff00ff",x,y+200);
+
+function playerstart(){
+    for(var i=0;i<player.length;i++){
+        stage.addChild(player[i][0]);
+    }
+}

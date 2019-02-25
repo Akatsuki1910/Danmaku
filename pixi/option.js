@@ -18,6 +18,17 @@ var enemy = [];
 var enemyhp = 100;
 //#################################
 
+//destroy
+function des(obj,mas,num,mas2,num2){
+    for(var i=mas;i<num+mas;i++){
+        for(var l=mas2;l<num2+mas2;l++)
+        if(obj[i][l]){
+            obj[i][l].destroy();
+        }
+    }
+}
+//####################################
+
 var mojimainx = 240;
 var mojimainy = 50;
 
@@ -25,11 +36,11 @@ var mojimainy = 50;
 var word = "被弾回数";
 var style = {font:'bold 40pt Arial', fill:'white'};
 var hitmainobj = new PIXI.Text(word, style);
-stage.addChild(hitmainobj);
+
 var word = "0";
 var style = {font:'bold 40pt Arial', fill:'white'};
 var hitobj = new PIXI.Text(word, style);
-stage.addChild(hitobj);
+
 hitobj.x=mojimainx;
 //#########################################
 
@@ -37,12 +48,13 @@ hitobj.x=mojimainx;
 var word = "敵HP";
 var style = {font:'bold 40pt Arial', fill:'white'};
 var hpmainobj = new PIXI.Text(word, style);
-stage.addChild(hpmainobj);
+
 hpmainobj.y=mojimainy;
+
 var word = ""+enemyhp;
 var style = {font:'bold 40pt Arial', fill:'white'};
 var hpobj = new PIXI.Text(word, style);
-stage.addChild(hpobj);
+
 hpobj.x=mojimainx;
 hpobj.y=mojimainy;
 //#########################################
@@ -53,12 +65,13 @@ var time=0;
 var word = "時間";
 var style = {font:'bold 40pt Arial', fill:'white'};
 var fpsmainobj = new PIXI.Text(word, style);
-stage.addChild(fpsmainobj);
+
 fpsmainobj.y=mojimainy*2;
+
 var word = "0.00";
 var style = {font:'bold 40pt Arial', fill:'white'};
 var fpsobj = new PIXI.Text(word, style);
-stage.addChild(fpsobj);
+
 fpsobj.x=mojimainx;
 fpsobj.y=mojimainy*2;
 
@@ -83,4 +96,15 @@ function endgame(){
 
 function orgRound(value, base) {
     return Math.round(((value+'0000000000').slice(0,10))*Math.pow(10,base))/Math.pow(10,base);
+}
+
+function optionstart(){
+    stage.addChild(hitmainobj);
+    stage.addChild(hitobj);
+
+    stage.addChild(hpmainobj);
+    stage.addChild(hpobj);
+
+    stage.addChild(fpsmainobj);
+    stage.addChild(fpsobj);
 }
