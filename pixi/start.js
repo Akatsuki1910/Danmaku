@@ -10,7 +10,7 @@ stage.addChild(button);
 button.interactive = true;
 //イベントの追加
 button.on('click', ()=>{
-    alert("Let's satrt");
+    alert("Let's start");
     button.destroy();
     renderer.render(stage);
     optionstart();
