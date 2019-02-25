@@ -78,6 +78,9 @@ fpsobj.y=mojimainy*2;
 //end
 var endflg = true;
 function endgame(){
+    hpobj.text="0";
+    renderer.render(stage);
+
     var word = "CLEAR";
     var style = {font:'bold 40pt Arial', fill:'white'};
     var clearobj = new PIXI.Text(word, style);
