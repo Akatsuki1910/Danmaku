@@ -1,17 +1,53 @@
 /*jshint esversion: 6 */
-var button = new PIXI.Text('START',{font : '50px Arial', fill : 0xffffff, align : 'center'});
-button.anchor.x = 0.5;
-button.anchor.y = 0.5;
-button.position.x = width * 0.5;
-button.position.y = height * 0.5;
-//ボタンをステージに追加
-stage.addChild(button);
-//タッチイベント(マウスイベント)を有効化
-button.interactive = true;
-//イベントの追加
-button.on('click', ()=>{
-    alert("Let's start");
-    button.destroy();
+var button = [];
+button[0] = new PIXI.Text('EASY',{font : '50px Arial', fill : 0xffffff});
+button[0].anchor.x = 0.5;
+button[0].anchor.y = 0.5;
+button[0].position.x = x;
+button[0].position.y = y-70;
+button[1] = new PIXI.Text('NOMAL',{font : '50px Arial', fill : 0xffffff});
+button[1].anchor.x = 0.5;
+button[1].anchor.y = 0.5;
+button[1].position.x = x-150;
+button[1].position.y = y;
+button[2] = new PIXI.Text('HARD',{font : '50px Arial', fill : 0xffffff});
+button[2].anchor.x = 0.5;
+button[2].anchor.y = 0.5;
+button[2].position.x = x+150;
+button[2].position.y = y;
+button[3] = new PIXI.Text('LUNATIC',{font : '50px Arial', fill : 0xffffff});
+button[3].anchor.x = 0.5;
+button[3].anchor.y = 0.5;
+button[3].position.x = x;
+button[3].position.y = y+70;
+
+for(var i=0;i<button.length;i++){
+    stage.addChild(button[i]);
+    button[i].interactive = true;
+}
+button[0].on('click', ()=>{
+    enemyhp=100;
+    startall();
+});
+button[1].on('click', ()=>{
+    enemyhp=200;
+    startall();
+});
+button[2].on('click', ()=>{
+    enemyhp=300;
+    startall();
+});
+button[3].on('click', ()=>{
+    enemyhp=10000;
+    startall();
+});
+
+
+function startall(){
+    hpobj.text=enemyhp;
+    for(var i=0;i<button.length;i++){
+        button[i].destroy();
+    }
     renderer.render(stage);
     optionstart();
     enemystart(circle);
@@ -20,7 +56,7 @@ button.on('click', ()=>{
     addcount(0,1,50,"0x000000",x,y);
     countstart(countarray);
     countdownmain();
-});
+}
 //レンダリング
 renderer.render(stage);
 
@@ -43,28 +79,28 @@ function countdown(obj,min,max,col,rad){
 function addcount(mas,num,rad,color,x,y){
     for(var i=mas;i<num+mas;i++){
         countarray[i]= [];
-        //enemy main
+
         countarray[i][0] = new PIXI.Graphics();
         countarray[i][0].beginFill(color, 1);
         countarray[i][0].drawCircle(0,0,rad);
         countarray[i][0].endFill();
         countarray[i][0].x=x;
         countarray[i][0].y=y;
-        //HP
+
         countarray[i][3] = new PIXI.Graphics();
         countarray[i][3].beginFill("0xffffff", 1);
         countarray[i][3].drawCircle(0,0,rad*2);
         countarray[i][3].endFill();
         countarray[i][3].x=countarray[i][0].x;
         countarray[i][3].y=countarray[i][0].y;
-        //hole
+
         countarray[i][2] = new PIXI.Graphics();
         countarray[i][2].beginFill("0x000000", 1);
         countarray[i][2].drawCircle(0,0,rad*2-5);
         countarray[i][2].endFill();
         countarray[i][2].x=countarray[i][0].x;
         countarray[i][2].y=countarray[i][0].y;
-        //gage
+
         countarray[i][1] = new PIXI.Graphics();
         countarray[i][1].beginFill("0x000000", 1);
         countarray[i][1].arc(0,0,rad*2,-pi*0,pi*(360), true);

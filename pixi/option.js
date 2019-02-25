@@ -15,7 +15,7 @@ window.onresize = function () {
 };
 var player = [];
 var enemy = [];
-var enemyhp = 100;
+var enemyhp;
 //#################################
 
 //destroy
@@ -78,9 +78,6 @@ fpsobj.y=mojimainy*2;
 //end
 var endflg = true;
 function endgame(){
-    hpobj.text="0";
-    renderer.render(stage);
-
     var word = "CLEAR";
     var style = {font:'bold 40pt Arial', fill:'white'};
     var clearobj = new PIXI.Text(word, style);
@@ -95,6 +92,9 @@ function endgame(){
     scoremainobj.x=x-200;
     scoremainobj.y=y+10;
     stage.addChild(scoremainobj);
+
+    hpobj.text="0";
+    renderer.render(stage);
 }
 
 function orgRound(value, base) {
