@@ -53,6 +53,7 @@ function playerMoveMain(event){
     }
 }
 
+function movekeylock(){
 $(document).on("keydown",(e)=>{
     if(e.keyCode==16){keyshift=true;}
     keyPressed[e.keyCode] = true;
@@ -61,6 +62,9 @@ $(document).on("keyup",(e)=>{
     if(e.keyCode==16){keyshift=false;}
     keyPressed[e.keyCode] = false;
 });
+}
+
+
 $(window).on("blur",()=>{keyPressed.length = 0;});
 
 function exec(){

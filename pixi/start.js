@@ -1,21 +1,22 @@
 /*jshint esversion: 6 */
 var button = [];
-button[0] = new PIXI.Text('EASY',{font : '50px Arial', fill : 0xffffff});
+var level = ["EASY","NOMAL","HARD","LUNATIC"];
+button[0] = new PIXI.Text(level[0],{fontFamily : 'Arial',fontSize : '50px', fill : 0xffffff});
 button[0].anchor.x = 0.5;
 button[0].anchor.y = 0.5;
 button[0].position.x = x;
 button[0].position.y = y-70;
-button[1] = new PIXI.Text('NOMAL',{font : '50px Arial', fill : 0xffffff});
+button[1] = new PIXI.Text(level[1],{fontFamily : 'Arial',fontSize : '40px', fill : 0xffffff});
 button[1].anchor.x = 0.5;
 button[1].anchor.y = 0.5;
 button[1].position.x = x-150;
 button[1].position.y = y;
-button[2] = new PIXI.Text('HARD',{font : '50px Arial', fill : 0xffffff});
+button[2] = new PIXI.Text(level[2],{fontFamily : 'Arial',fontSize : '40px', fill : 0xffffff});
 button[2].anchor.x = 0.5;
 button[2].anchor.y = 0.5;
 button[2].position.x = x+150;
 button[2].position.y = y;
-button[3] = new PIXI.Text('LUNATIC',{font : '50px Arial', fill : 0xffffff});
+button[3] = new PIXI.Text(level[3],{fontFamily : 'Arial',fontSize : '40px', fill : 0xffffff});
 button[3].anchor.x = 0.5;
 button[3].anchor.y = 0.5;
 button[3].position.x = x;
@@ -42,12 +43,69 @@ button[3].on('click', ()=>{
     startall();
 });
 
+var levelserect = true;
+var selectlevel = 0;
+$(document).on("keyup",(e)=>{
+    if(levelserect){
+        switch(e.keyCode){
+            case 37://nomal
+                levelselectmode(1,selectlevel);
+                break;
+            case 38://easy
+                levelselectmode(0,selectlevel);
+                break;
+            case 39://hard
+                levelselectmode(2,selectlevel);
+                break;
+            case 40://lunatic
+                levelselectmode(3,selectlevel);
+                break;
+            case 13://enter
+                switch(selectlevel){
+                    case 0:enemyhp=100;break;
+                    case 1:enemyhp=200;break;
+                    case 2:enemyhp=300;break;
+                    case 3:enemyhp=10000;break;
+                }
+                startall();
+                break;
+        }
+    }
+});
+
+function levelselectmode(lev,selev){
+    var selevx = button[selev].x;
+    var selevy = button[selev].y;
+    button[selev].destroy();
+    button[selev] = new PIXI.Text(level[selev],{fontFamily : 'Arial',fontSize : '40px', fill : 0xffffff});
+    button[selev].position.x = selevx;
+    button[selev].position.y = selevy;
+    button[selev].anchor.x = 0.5;
+    button[selev].anchor.y = 0.5;
+    stage.addChild(button[selev]);
+
+    var levx = button[lev].x;
+    var levy = button[lev].y;
+    button[lev].destroy();
+    button[lev] = new PIXI.Text(level[lev],{fontFamily : 'Arial',fontSize : '50px', fill : 0xffffff});
+    button[lev].position.x = levx;
+    button[lev].position.y = levy;
+    button[lev].anchor.x = 0.5;
+    button[lev].anchor.y = 0.5;
+    stage.addChild(button[lev]);
+
+    selectlevel=lev;
+    renderer.render(stage);
+}
+
 
 function startall(){
+    levelserect=false;
     hpobj.text=enemyhp;
     for(var i=0;i<button.length;i++){
         button[i].destroy();
     }
+    rendererThree.render(scene, camera);
     renderer.render(stage);
     optionstart();
     enemystart(circle);
@@ -58,6 +116,7 @@ function startall(){
     countdownmain();
 }
 //レンダリング
+rendererThree.render(scene, camera);
 renderer.render(stage);
 
 //countdown
@@ -111,7 +170,7 @@ function addcount(mas,num,rad,color,x,y){
 }
 
 var word = "3";
-var style = {font:'bold 40pt Arial', fill:'white'};
+var style = {fontFamily : 'Arial',fontSize : '40px', fill:'white', fontWeight : "bold"};
 var countobj = new PIXI.Text(word, style);
 
 countobj.x=x-10;
@@ -125,18 +184,20 @@ function countstart(obj){
 }
 
 function countdownmain(){
-    requestAnimationFrame(countdownmain);
-    countdownnum++;
-    if(countdownnum>=60){
-        countobj.text--;
-        countdownnum=0;
-    }
     if(countobj.text==0){
         des(countarray,0,countarray.length,0,countarray[0].length);
         countobj.destroy();
         cancelAnimationFrame(countdownmain);
+        movekeylock();
         requestAnimationFrame(animate);
+    }else{
+        requestAnimationFrame(countdownmain);
+        countdownnum++;
+        if(countdownnum>=60){
+            countobj.text--;
+            countdownnum=0;
+        }
+        countdown(countarray,0,1,"0x000000",100);
+        renderer.render(stage);
     }
-    countdown(countarray,0,1,"0x000000",100);
-    renderer.render(stage);
 }

@@ -2,7 +2,7 @@ var xmove , ymove;
 var move = (new Array(1000)).fill(1);//0
 var endflg = true;
 function animate(){
-    if(endflg){requestAnimationFrame(animate);}else{endgame();}
+    if(endflg){requestAnimationFrame(animate);}else{hpobj.text="0";endgame();}
     var l = 0;
     for(var t=0;t<u;t++){
         for(var i=0;i<360;i+=(360/obj_shot)){
