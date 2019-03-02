@@ -5,22 +5,16 @@ canvasとかやってられるか
 latest
 https://akatsuki1910.github.io/PlayGround/pixi/main.html
 
-開発途中
-https://akatsuki1910.github.io/PlayGround/konva/test2.html
-
 ダメだったもの  
 css  
 jQuery  
-konva.js   
-
-触る予定  
+konva.js 
 CreateJS  
-EaselJS  
-WebGL  
+EaselJS
 
-希望  
-CreateJS + pixi.js  
-https://ics.media/entry/5140
+触る予定    
+WebGL   => pixi.js
+HAIKEI  => three.js
 
 拡張的な何か  
 p2.js  
