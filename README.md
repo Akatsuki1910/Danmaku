@@ -17,15 +17,15 @@
 
 ## 裏話
 ### 使用スクリプト
-* jQuery
-* pixi.js
-* three.js
+* [jQuery](https://jquery.com/)
+* [pixi.js](http://www.pixijs.com/)
+* [three.js](https://threejs.org)
 
 ### ダメだったもの
-* konva.js
-* CreateJS
-* EaselJS
+* [konva.js](https://konvajs.org/)
+* [CreateJS](https://createjs.com/)
+* [EaselJS](https://www.createjs.com/easeljs)
 
 ### 希望
-* p2.js
+* [p2.js](https://github.com/schteppe/p2.js)<br>
 [p2.jsについて](https://blog.applibot.co.jp/2017/09/06/p2-js/)
