@@ -4,9 +4,9 @@
 ~~canvasを使ってると言えない~~
 
 ## GAME
-* latest
+* 最新=>
 [latest](https://akatsuki1910.github.io/PlayGround/pixi/main.html)<br>
-* no effect
+* 軽量版=>
 [no effect](https://akatsuki1910.github.io/PlayGround/no_eff/main.html)<br>
 
 ## 操作方法
