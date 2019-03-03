@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 var button = [];
 var level = ["EASY","NOMAL","HARD","LUNATIC"];
+var arrow = ["↑","←","→","↓"];
 button[0] = new PIXI.Text(level[0],{fontFamily : 'Arial',fontSize : '50px', fill : 0xffffff});
 button[0].anchor.x = 0.5;
 button[0].anchor.y = 0.5;
@@ -22,11 +23,19 @@ button[3].anchor.y = 0.5;
 button[3].position.x = x;
 button[3].position.y = y+70;
 
+var selectarrow;
+selectarrow = new PIXI.Text(arrow[0],{fontFamily : 'Arial',fontSize : '40px', fill : 0xffffff});
+selectarrow.anchor.x = 0.5;
+selectarrow.anchor.y = 0.5;
+selectarrow.position.x = x;
+selectarrow.position.y = y;
+
 function buttonset(){
     for(var i=0;i<button.length;i++){
         stage.addChild(button[i]);
         button[i].interactive = true;
     }
+    stage.addChild(selectarrow);
 }
 
 //button[0].on('click', ()=>{
@@ -103,6 +112,14 @@ function levelselectmode(lev,selev){
     button[lev].anchor.y = 0.5;
     stage.addChild(button[lev]);
 
+    selectarrow.destroy();
+    selectarrow = new PIXI.Text(arrow[lev],{fontFamily : 'Arial',fontSize : '50px', fill : 0xffffff});
+    selectarrow.position.x = x;
+    selectarrow.position.y = y;
+    selectarrow.anchor.x = 0.5;
+    selectarrow.anchor.y = 0.5;
+    stage.addChild(selectarrow);
+
     selectlevel=lev;
     renderer.render(stage);
 }
@@ -114,6 +131,8 @@ function startall(){
     for(var i=0;i<button.length;i++){
         button[i].destroy();
     }
+    selectarrow.destroy();
+
     rendererThree.render(scene, camera);
     renderer.render(stage);
     optionstart();
