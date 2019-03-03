@@ -3,7 +3,9 @@
 canvasとかやってられるか
 
 latest
-https://akatsuki1910.github.io/PlayGround/pixi/main.html
+https://akatsuki1910.github.io/PlayGround/pixi/main.html  
+no effect
+https://akatsuki1910.github.io/PlayGround/no_eff/main.html  
 
 ダメだったもの  
 css  
