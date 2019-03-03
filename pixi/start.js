@@ -22,28 +22,31 @@ button[3].anchor.y = 0.5;
 button[3].position.x = x;
 button[3].position.y = y+70;
 
-for(var i=0;i<button.length;i++){
-    stage.addChild(button[i]);
-    button[i].interactive = true;
+function buttonset(){
+    for(var i=0;i<button.length;i++){
+        stage.addChild(button[i]);
+        button[i].interactive = true;
+    }
 }
-button[0].on('click', ()=>{
-    enemyhp=100;
-    startall();
-});
-button[1].on('click', ()=>{
-    enemyhp=200;
-    startall();
-});
-button[2].on('click', ()=>{
-    enemyhp=300;
-    startall();
-});
-button[3].on('click', ()=>{
-    enemyhp=10000;
-    startall();
-});
 
-var levelserect = true;
+//button[0].on('click', ()=>{
+//    enemyhp=100;
+//    startall();
+//});
+//button[1].on('click', ()=>{
+//    enemyhp=200;
+//    startall();
+//});
+//button[2].on('click', ()=>{
+//    enemyhp=300;
+//    startall();
+//});
+//button[3].on('click', ()=>{
+//    enemyhp=10000;
+//    startall();
+//});
+
+var levelserect = false;
 var selectlevel = 0;
 $(document).on("keyup",(e)=>{
     if(levelserect){
@@ -68,6 +71,12 @@ $(document).on("keyup",(e)=>{
                     case 3:enemyhp=10000;break;
                 }
                 startall();
+                break;
+            case 77://m
+                if(e.ctrlKey){
+                    enemyhp=10;
+                    startall();
+                }
                 break;
         }
     }
@@ -116,7 +125,6 @@ function startall(){
     countdownmain();
 }
 //レンダリング
-rendererThree.render(scene, camera);
 renderer.render(stage);
 
 //countdown

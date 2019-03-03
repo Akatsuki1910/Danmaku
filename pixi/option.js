@@ -17,6 +17,7 @@ window.onresize = function () {
 var player = [];
 var enemy = [];
 var enemyhp;
+
 //#################################
 
 //destroy

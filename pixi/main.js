@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 var xmove , ymove;
 var move = (new Array(1000)).fill(1);//0
 var endflg = true;
