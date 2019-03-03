@@ -27,5 +27,5 @@
 * EaselJS
 
 ## 希望
-* p2.js**
+* p2.js
 [p2.jsについて](https://blog.applibot.co.jp/2017/09/06/p2-js/)
