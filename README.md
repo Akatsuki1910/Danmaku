@@ -13,8 +13,8 @@ CreateJS
 EaselJS
 
 触る予定    
-WebGL   => pixi.js
-HAIKEI  => three.js
+WebGL   => pixi.js  
+HAIKEI  => three.js  
 
 拡張的な何か  
 p2.js  
