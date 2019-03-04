@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 //don't move
-var width = screen.availWidth*2;
-var height = screen.availHeight*2;
+var width = window.innerWidth;
+var height = window.innerHeight;
 var x = width/2;
 var y = height/2;
 var stage = new PIXI.Container();
