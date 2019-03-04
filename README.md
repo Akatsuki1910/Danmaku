@@ -8,6 +8,8 @@
 [latest](https://akatsuki1910.github.io/PlayGround/pixi/main.html)<br>
 * 軽量版=>
 [no effect](https://akatsuki1910.github.io/PlayGround/no_eff/main.html)<br>
+* スマホ版=>
+[mobile](https://akatsuki1910.github.io/PlayGround/mobile/main.html)<br>
 
 ## 操作方法
 決定→Enter<br>
