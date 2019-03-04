@@ -17,12 +17,12 @@ function animate(){
             }
             if(hitcheck(circle,enemy,l,l+1,5,5)==1){
                 if(colorX(circle[l][0].fillColor)=="ff0000"){
-                    changecolor(circle,l,l+1,"0x0000ff",5);
+                    changecolor(circle,l,l+1,"0x0000ff",10);
                 }
             }
             if(hitcheck(circle,player,l,l+1,5,5)==1){
                 if(colorX(circle[l][0].fillColor)!="ff0000"){
-                    changecolor(circle,l,l+1,"0xff0000",5);
+                    changecolor(circle,l,l+1,"0xff0000",10);
                     hitobj.text++;
                 }
             }

@@ -32,9 +32,6 @@ var movekeylock = false;
 var move_flg=4;
 var count=0;
 
-
-
-
 function exec(){
     if(count==10){count=0;}else{count++;}
     if(count==0 && movekeylock){playershot();}
@@ -96,7 +93,7 @@ function addplayershot(rad,color,x,y){
 }
 
 function playershot(){
-    addplayershot(9,"0x00ff00",player[0][0].x,player[0][0].y);
+    addplayershot(6,"0x00ff00",player[0][0].x,player[0][0].y);
 }
 
 //playershot
@@ -107,11 +104,11 @@ function playershotmove(){
         var sy = player_shot[i][0].y;
         ymove = sy-3;
         objset(i,sx,ymove,player_shot);
-        if(hitcheck(player_shot,enemy,i,i+1,3,10)==1){
+        if(hitcheck(player_shot,enemy,i,i+1,6,20)==1){
             if(player_shot[i][1]==0){
                 hpobj.text--;
                 if(hpobj.text==0){endflg=false;}
-                decHP(enemy,0,1,"0x000000",10+hpcircle);
+                decHP(enemy,0,1,"0x000000",20+hpcircle);
                 player_shot[i][0].destroy();
                 player_shot.splice(i, 1);
             }
@@ -137,7 +134,7 @@ function addplayer(mas,num,rad,color,x,y){
     }
 }
 
-addplayer(0,1,15,"0xff00ff",x,y+200);
+addplayer(0,1,10,"0xff00ff",x,y+200);
 
 function playerstart(){
     for(var i=0;i<player.length;i++){
