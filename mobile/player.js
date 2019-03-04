@@ -96,7 +96,7 @@ function addplayershot(rad,color,x,y){
 }
 
 function playershot(){
-    addplayershot(3,"0x00ff00",player[0][0].x,player[0][0].y);
+    addplayershot(9,"0x00ff00",player[0][0].x,player[0][0].y);
 }
 
 //playershot
@@ -137,7 +137,7 @@ function addplayer(mas,num,rad,color,x,y){
     }
 }
 
-addplayer(0,1,5,"0xff00ff",x,y+200);
+addplayer(0,1,15,"0xff00ff",x,y+200);
 
 function playerstart(){
     for(var i=0;i<player.length;i++){

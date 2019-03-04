@@ -17,7 +17,7 @@ function addenemy(mas,num,rad,color,x,y){
         enemy[i][0].x=x;
         enemy[i][0].y=y;
         //HP
-        hpcircle = 5;
+        hpcircle = 15;
         enemy[i][3] = new PIXI.Graphics();
         enemy[i][3].beginFill("0xff00ff", 1);
         enemy[i][3].drawCircle(0,0,rad+hpcircle);
@@ -54,8 +54,8 @@ function addobj(mas,num,rad,color,x,y,obj){
     }
 }
 
-addenemy(0,1,10,"0xffff00",x,y);
-addobj(0,obj_shot*u,5,"0x0000ff",x,y,circle);
+addenemy(0,1,30,"0xffff00",x,y);
+addobj(0,obj_shot*u,15,"0x0000ff",x,y,circle);
 
 function hitcheck(obj,tar,p,q,orad,trad){
     orad=orad/2+1;
