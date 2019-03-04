@@ -134,7 +134,8 @@ function addplayer(mas,num,rad,color,x,y){
     }
 }
 
-addplayer(0,1,10,"0xff00ff",x,y+200);
+var playerrad=10;
+addplayer(0,1,playerrad,"0xff00ff",x,y+200);
 
 function playerstart(){
     for(var i=0;i<player.length;i++){

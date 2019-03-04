@@ -15,14 +15,14 @@ function animate(){
             if(circle[l][0].x>x*2 || circle[l][0].x<0 || circle[l][0].y>y*2 || circle[l][0].y<0){
                 move[l]*=-1;
             }
-            if(hitcheck(circle,enemy,l,l+1,5,5)==1){
+            if(hitcheck(circle,enemy,l,l+1,enemyshotrad,enemymainrad)==1){
                 if(colorX(circle[l][0].fillColor)=="ff0000"){
-                    changecolor(circle,l,l+1,"0x0000ff",10);
+                    changecolor(circle,l,l+1,"0x0000ff",enemyshotrad);
                 }
             }
-            if(hitcheck(circle,player,l,l+1,5,5)==1){
+            if(hitcheck(circle,player,l,l+1,enemyshotrad,playerrad)==1){
                 if(colorX(circle[l][0].fillColor)!="ff0000"){
-                    changecolor(circle,l,l+1,"0xff0000",10);
+                    changecolor(circle,l,l+1,"0xff0000",enemyshotrad);
                     hitobj.text++;
                 }
             }
