@@ -9,8 +9,8 @@ function animate(){
         for(var i=0;i<360;i+=(360/obj_shot)){
             var sx = circle[l][0].x;
             var sy = circle[l][0].y;
-            xmove = sx+Math.cos(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(move[l]*0.5*(t+1));
-            ymove = sy+Math.sin(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(move[l]*0.5*(t+1));
+            xmove = sx+Math.cos(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(move[l]*(t+1));
+            ymove = sy+Math.sin(((i+t*(360/obj_shot)/u)*(Math.PI/180)))*(move[l]*(t+1));
             objset(l,xmove,ymove,circle);
             if(circle[l][0].x>x*2 || circle[l][0].x<0 || circle[l][0].y>y*2 || circle[l][0].y<0){
                 move[l]*=-1;
