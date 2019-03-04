@@ -133,7 +133,6 @@ function startall(){
     }
     selectarrow.destroy();
 
-    rendererThree.render(scene, camera);
     renderer.render(stage);
     optionstart();
     enemystart(circle);
