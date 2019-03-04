@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 var button = [];
 var level = ["EASY","NOMAL","HARD","LUNATIC"];
+var arrow = ["↑","←","→","↓"];
 button[0] = new PIXI.Text(level[0],{fontFamily : 'Arial',fontSize : '50px', fill : 0xffffff});
 button[0].anchor.x = 0.5;
 button[0].anchor.y = 0.5;
@@ -22,28 +23,39 @@ button[3].anchor.y = 0.5;
 button[3].position.x = x;
 button[3].position.y = y+70;
 
-for(var i=0;i<button.length;i++){
-    stage.addChild(button[i]);
-    button[i].interactive = true;
-}
-button[0].on('click', ()=>{
-    enemyhp=100;
-    startall();
-});
-button[1].on('click', ()=>{
-    enemyhp=200;
-    startall();
-});
-button[2].on('click', ()=>{
-    enemyhp=300;
-    startall();
-});
-button[3].on('click', ()=>{
-    enemyhp=10000;
-    startall();
-});
+var selectarrow;
+selectarrow = new PIXI.Text(arrow[0],{fontFamily : 'Arial',fontSize : '40px', fill : 0xffffff});
+selectarrow.anchor.x = 0.5;
+selectarrow.anchor.y = 0.5;
+selectarrow.position.x = x;
+selectarrow.position.y = y;
 
-var levelserect = true;
+function buttonset(){
+    for(var i=0;i<button.length;i++){
+        stage.addChild(button[i]);
+        button[i].interactive = true;
+    }
+    stage.addChild(selectarrow);
+}
+
+//button[0].on('click', ()=>{
+//    enemyhp=100;
+//    startall();
+//});
+//button[1].on('click', ()=>{
+//    enemyhp=200;
+//    startall();
+//});
+//button[2].on('click', ()=>{
+//    enemyhp=300;
+//    startall();
+//});
+//button[3].on('click', ()=>{
+//    enemyhp=10000;
+//    startall();
+//});
+
+var levelserect = false;
 var selectlevel = 0;
 $(document).on("keyup",(e)=>{
     if(levelserect){
@@ -68,6 +80,12 @@ $(document).on("keyup",(e)=>{
                     case 3:enemyhp=10000;break;
                 }
                 startall();
+                break;
+            case 77://m
+                if(e.ctrlKey){
+                    enemyhp=10;
+                    startall();
+                }
                 break;
         }
     }
@@ -94,6 +112,14 @@ function levelselectmode(lev,selev){
     button[lev].anchor.y = 0.5;
     stage.addChild(button[lev]);
 
+    selectarrow.destroy();
+    selectarrow = new PIXI.Text(arrow[lev],{fontFamily : 'Arial',fontSize : '50px', fill : 0xffffff});
+    selectarrow.position.x = x;
+    selectarrow.position.y = y;
+    selectarrow.anchor.x = 0.5;
+    selectarrow.anchor.y = 0.5;
+    stage.addChild(selectarrow);
+
     selectlevel=lev;
     renderer.render(stage);
 }
@@ -105,7 +131,8 @@ function startall(){
     for(var i=0;i<button.length;i++){
         button[i].destroy();
     }
-    //rendererThree.render(scene, camera);
+    selectarrow.destroy();
+
     renderer.render(stage);
     optionstart();
     enemystart(circle);
@@ -116,7 +143,6 @@ function startall(){
     countdownmain();
 }
 //レンダリング
-//rendererThree.render(scene, camera);
 renderer.render(stage);
 
 //countdown
