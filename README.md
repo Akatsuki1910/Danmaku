@@ -1,7 +1,9 @@
 # PlayGround
 
 **canvasとかやってられるか**<br>
-~~canvasを使ってると言えない~~
+~~canvasを使ってると言えない~~<br>
+<br>
+**fu`*`kie**
 
 ## GAME
 * 最新=>
