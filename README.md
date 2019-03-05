@@ -3,7 +3,7 @@
 **canvasとかやってられるか**<br>
 ~~canvasを使ってると言えない~~<br>
 <br>
-**fu\*k ie**
+**fu\*k IE**
 
 ## GAME
 * 最新=>
