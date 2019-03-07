@@ -77,6 +77,22 @@ var fpsobj = new PIXI.Text(word, style);
 
 fpsobj.x=mojimainx;
 fpsobj.y=mojimainy*2;
+//#########################################
+
+//graze
+var word = "グレイズ";
+var style = {fontFamily : 'Arial',fontSize : '40px', fill:'white', fontWeight : "bold"};
+var grazemainobj = new PIXI.Text(word, style);
+
+grazemainobj.y=mojimainy*3;
+
+var word = "0";
+var style = {fontFamily : 'Arial',fontSize : '40px', fill:'white', fontWeight : "bold"};
+var grazeobj = new PIXI.Text(word, style);
+
+grazeobj.x=mojimainx;
+grazeobj.y=mojimainy*3;
+//#########################################
 
 //end
 var endflg = true;
@@ -91,7 +107,7 @@ function endgame(){
     stage.addChild(clearobj);
 
     var word = "SCORE";
-    var score = (10000-fpsobj.text*(hitobj.text+0.01));
+    var score = (10000-(hitobj.text/100)+(grazeobj.text-fpsobj.text)*10);
     word+=" "+orgRound(score,5);
     var style = {fontFamily : 'Arial',fontSize : '40px', fill:'white'};
     var scoremainobj = new PIXI.Text(word, style);
@@ -133,4 +149,7 @@ function optionstart(){
 
     stage.addChild(fpsmainobj);
     stage.addChild(fpsobj);
+
+    stage.addChild(grazemainobj);
+    stage.addChild(grazeobj);
 }

@@ -58,25 +58,31 @@ addenemy(0,1,10,"0xffff00",x,y);
 addobj(0,obj_shot*u,5,"0x0000ff",x,y,circle);
 
 function hitcheck(obj,tar,p,q,orad,trad){
-    orad=orad/2+1;
-    trad=trad/2+1;
     var point=0;
-    var minx = tar[0][0].x-trad;
-    var maxx = tar[0][0].x+trad;
-    var miny = tar[0][0].y-trad;
-    var maxy = tar[0][0].y+trad;
+    var tarx = tar[0][0].x;
+    var tary = tar[0][0].y;
     for(var i=p;i<q;i++){
-        var shot_minx = obj[i][0].x-orad;
-        var shot_maxx = obj[i][0].x+orad;
-        var shot_miny = obj[i][0].y-orad;
-        var shot_maxy = obj[i][0].y+orad;
-        if((minx<shot_maxx && maxx>shot_minx) && (miny<shot_maxy && maxy>shot_miny)){
+        var objx = obj[i][0].x;
+        var objy = obj[i][0].y;
+        if((tarx-objx)**2+(tary-objy)**2<=(orad+trad-2)**2){// jshint ignore:line
             point=1;
             break;
         }
     }
-
     return point;
+}
+
+function grazecheck(obj,tar,p,q,orad,trad){
+    var tarx = tar[0][0].x;
+    var tary = tar[0][0].y;
+    for(var i=p;i<q;i++){
+        var objx = obj[i][0].x;
+        var objy = obj[i][0].y;
+        var sla = (tarx-objx)**2+(tary-objy)**2;// jshint ignore:line
+        if(sla<=(orad+trad)**2 && sla>(orad+trad-2)**2){// jshint ignore:line
+            grazeobj.text++;
+        }
+    }
 }
 
 function decHP(obj,min,max,col,rad){
