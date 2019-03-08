@@ -24,6 +24,7 @@
 * [jQuery](https://jquery.com/)
 * [pixi.js](http://www.pixijs.com/)
 * [three.js](https://threejs.org)
+* [loading](http://loadergenerator.com/)
 
 ### ダメだったもの
 * [konva.js](https://konvajs.org/)
