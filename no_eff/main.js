@@ -29,6 +29,7 @@ function animate(){
             l++;
         }
     }
+    grazecheck(circle,player,0,circle.length,5,5);
     playershotmove();
     //effectmain();
     //rendererThree.render(scene, camera);
