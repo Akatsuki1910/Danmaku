@@ -7,7 +7,7 @@
 
 ## GAME
 * 最新=>
-[latest](https://akatsuki1910.github.io/PlayGround/pixi/main.html)<br>
+[latest](https://akatsuki1910.github.io/PlayGround/pc/main.html)<br>
 * 軽量版=>
 [no effect](https://akatsuki1910.github.io/PlayGround/no_eff/main.html)<br>
 * スマホ版=>
