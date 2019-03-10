@@ -37,3 +37,4 @@
 
 ### 参考文献
 * [https://oar.st40.xyz/article/130](https://oar.st40.xyz/article/130)
+* [http://nakajmgtech.blogspot.com/2013/03/preloadjs-x-soundjs.html](http://nakajmgtech.blogspot.com/2013/03/preloadjs-x-soundjs.html)
