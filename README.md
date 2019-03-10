@@ -32,6 +32,7 @@
 * [jQuery](https://jquery.com/)
 * [pixi.js](http://www.pixijs.com/)
 * [three.js](https://threejs.org)
+* [SoundJS](https://www.createjs.com/soundjs)
 * [loading](http://loadergenerator.com/)
 
 ### ダメだったもの
