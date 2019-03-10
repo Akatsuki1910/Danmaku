@@ -19,6 +19,14 @@
 弾発射→Z<br>
 低速移動→移動中にShift<br>
 
+## 使用したもの
+### 音声
+* [グレイズ音](https://commons.nicovideo.jp/material/nc126633)
+
+### 参考文献
+* [https://oar.st40.xyz/article/130](https://oar.st40.xyz/article/130)
+* [http://nakajmgtech.blogspot.com/2013/03/preloadjs-x-soundjs.html](http://nakajmgtech.blogspot.com/2013/03/preloadjs-x-soundjs.html)
+
 ## 裏話
 ### 使用スクリプト
 * [jQuery](https://jquery.com/)
@@ -34,7 +42,3 @@
 ### 希望
 * [p2.js](https://github.com/schteppe/p2.js)<br>
 [p2.jsについて](https://blog.applibot.co.jp/2017/09/06/p2-js/)
-
-### 参考文献
-* [https://oar.st40.xyz/article/130](https://oar.st40.xyz/article/130)
-* [http://nakajmgtech.blogspot.com/2013/03/preloadjs-x-soundjs.html](http://nakajmgtech.blogspot.com/2013/03/preloadjs-x-soundjs.html)
