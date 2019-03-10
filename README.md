@@ -36,4 +36,4 @@
 [p2.jsについて](https://blog.applibot.co.jp/2017/09/06/p2-js/)
 
 ### 参考文献
-* [音声ファイル再生](https://oar.st40.xyz/article/130)
+* [](https://oar.st40.xyz/article/130)
