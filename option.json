@@ -1,0 +1,7 @@
+{
+    "hp":[100,200,300,10000],
+    "sound":[
+        {"id":"graze-music", "src":"nc126633.wav"},
+        {"id":"decision", "src":"nc129731.wav"}
+    ]
+}
