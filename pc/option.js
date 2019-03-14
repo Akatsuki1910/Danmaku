@@ -153,3 +153,11 @@ function optionstart(){
     stage.addChild(grazemainobj);
     stage.addChild(grazeobj);
 }
+
+//wav
+var sounds;
+$.ajaxSetup({async: false});
+$.getJSON("../option.json",(data)=>{sounds=data.sound;});
+$.ajaxSetup({async: true});
+createjs.Sound.alternativeExtensions = ["wav"];
+createjs.Sound.registerSounds(sounds, "../");

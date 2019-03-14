@@ -32,9 +32,28 @@ function animate(){
     grazecheck(circle,player,0,circle.length,5,5);
     playershotmove();
     effectmain();
+
+    if(Number(grazeobj.text)-grazesub!=0){
+        if(!audio_boo){
+            grazesound = createjs.Sound.play("graze-music");
+            audio_boo=true;
+        }
+    }else{
+        if(audio_boo){
+            if(grazesound){grazesound.stop();}
+            audio_boo=false;
+        }
+    }
+    if(!grazesound){audio_boo=false;}
+    grazesub=Number(grazeobj.text);
+
     rendererThree.render(scene, camera);
     renderer.render(stage);
 
     time++;
     fpsobj.text=time/100;
 }
+
+var grazesound;
+var audio_boo = false;
+var grazesub=0;

@@ -20,6 +20,7 @@ var titleserect=false;
 $(document).on("keyup",(e)=>{
     if(titleserect){
         if(e.keyCode == 13){
+            createjs.Sound.play("decision");
             titleserect=false;
             title.destroy();
             buttonset();
