@@ -22,6 +22,7 @@
 ## 使用したもの
 ### 音声
 * [グレイズ音](https://commons.nicovideo.jp/material/nc126633)
+* [決定音](https://commons.nicovideo.jp/material/nc129731)
 
 ### 参考文献
 * [https://oar.st40.xyz/article/130](https://oar.st40.xyz/article/130)
