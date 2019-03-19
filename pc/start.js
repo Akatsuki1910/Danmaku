@@ -140,7 +140,7 @@ function startall(){
 
     renderer.render(stage);
     optionstart();
-    enemystart(circle);
+    enemystart();
     playerstart();
 
     addcount(0,1,50,"0x000000",x,y);
@@ -219,8 +219,7 @@ function countdownmain(){
         des(countarray,0,countarray.length,0,countarray[0].length);
         countobj.destroy();
         cancelAnimationFrame(countdownmain);
-        movekeylock();
-        requestAnimationFrame(animate);
+        firsyenemymove();
     }else{
         requestAnimationFrame(countdownmain);
         countdownnum++;

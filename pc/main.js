@@ -3,7 +3,13 @@ var xmove , ymove;
 var move = (new Array(1000)).fill(1);//0
 var endflg = true;
 function animate(){
-    if(endflg){requestAnimationFrame(animate);}else{hpobj.text="0";endgame();}
+    if(endflg){
+        requestAnimationFrame(animate);
+    }else{
+        hpobj.text="0";
+        if(grazesound){grazesound.stop();}
+        endgame();
+    }
     var l = 0;
     for(var t=0;t<u;t++){
         for(var i=0;i<360;i+=(360/obj_shot)){
@@ -30,22 +36,11 @@ function animate(){
         }
     }
     grazecheck(circle,player,0,circle.length,5,5);
+    grazesoundmain();
     playershotmove();
+    positionset(enemy);
+    positionset(player);
     effectmain();
-
-    if(Number(grazeobj.text)-grazesub!=0){
-        if(!audio_boo){
-            grazesound = createjs.Sound.play("graze-music");
-            audio_boo=true;
-        }
-    }else{
-        if(audio_boo){
-            if(grazesound){grazesound.stop();}
-            audio_boo=false;
-        }
-    }
-    if(!grazesound){audio_boo=false;}
-    grazesub=Number(grazeobj.text);
 
     rendererThree.render(scene, camera);
     renderer.render(stage);
@@ -54,6 +49,13 @@ function animate(){
     fpsobj.text=time/100;
 }
 
-var grazesound;
-var audio_boo = false;
-var grazesub=0;
+addenemy(0,1,10,"0xffff00",x,-(10+hpcircle+hpbar));
+addobj(0,obj_shot*u,5,"0x0000ff",x,y,circle);
+addplayer(0,1,5,"0xff00ff",x,y+200);
+
+function positionset(obj){
+    for(var i=0;i<obj.length;i++){
+        obj[i][1].x=obj[i][0].x;
+        obj[i][1].y=obj[i][0].y;
+    }
+}
