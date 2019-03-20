@@ -100,7 +100,11 @@ function colorX(obj){
     return ('0000000000' + obj).slice(-6);
 }
 
-function enemystart(){
+function enemystart(obj){
+    for(var i=0;i<obj.length;i++){
+        stage.addChild(obj[i][0]);
+    }
+
     for(var a=0;a<enemy.length;a++){
         for(var b=0;b<enemy[a].length;b++){
             stage.addChild(enemy[a][b]);
@@ -108,21 +112,17 @@ function enemystart(){
     }
 }
 
-function enemyshotstart(obj){
-    for(var i=0;i<obj.length;i++){
-        stage.addChild(obj[i][0]);
-    }
-}
-
 function firsyenemymove(){
     renderer.render(stage);
     enemy[0][0].y+=1;
     positionset(enemy);
+    for(var t=0;t<circle.length;t++){
+        objset(t,enemy[0][0].x,enemy[0][0].y,circle);
+    }
     if(y<=enemy[0][0].y){
         cancelAnimationFrame(firsyenemymove);
-        enemyshotstart(circle);
         movekeylock();
-        requestAnimationFrame(animate);
+        animate();
     }else{
         requestAnimationFrame(firsyenemymove);
     }

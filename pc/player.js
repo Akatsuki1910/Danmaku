@@ -89,10 +89,6 @@ function playerkey(playx,playy,min,max,event){
     }
 }
 
-var Interval;
-clearInterval(Interval);
-Interval = setInterval(exec, 1000/120);//120fps
-
 //player mouse
 var movex;
 var movey;

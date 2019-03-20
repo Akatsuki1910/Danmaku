@@ -140,7 +140,7 @@ function startall(){
 
     renderer.render(stage);
     optionstart();
-    enemystart();
+    enemystart(circle);
     playerstart();
 
     addcount(0,1,50,"0x000000",x,y);

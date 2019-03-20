@@ -2,6 +2,7 @@
 var xmove , ymove;
 var move = (new Array(1000)).fill(1);//0
 var endflg = true;
+var movefps = 120;
 function animate(){
     if(endflg){
         requestAnimationFrame(animate);
@@ -10,6 +11,8 @@ function animate(){
         if(grazesound){grazesound.stop();}
         endgame();
     }
+    for(var i=0;i<movefps/60;i++){exec();}
+
     var l = 0;
     for(var t=0;t<u;t++){
         for(var i=0;i<360;i+=(360/obj_shot)){
