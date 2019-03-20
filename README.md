@@ -33,12 +33,12 @@
 * [jQuery](https://jquery.com/)
 * [pixi.js](http://www.pixijs.com/)
 * [three.js](https://threejs.org)
+* [CreateJS](https://createjs.com/)
 * [SoundJS](https://www.createjs.com/soundjs)
 * [loading](http://loadergenerator.com/)
 
 ### ダメだったもの
 * [konva.js](https://konvajs.org/)
-* [CreateJS](https://createjs.com/)
 * [EaselJS](https://www.createjs.com/easeljs)
 
 ### 希望
