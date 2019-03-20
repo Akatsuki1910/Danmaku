@@ -18,8 +18,8 @@ body {
 	height: 120px;
 	display: none;
 	position: fixed;
-	top: calc(50% - 60px);
-	left: calc(50% - 60px);
+	top: calc(50vh - 60px);
+	left: calc(50vw - 60px);
 	margin-top: -(50%)px; /* heightの半分のマイナス値 */
 	margin-left: -(50%)px; /* widthの半分のマイナス値 */
 	z-index: 100;

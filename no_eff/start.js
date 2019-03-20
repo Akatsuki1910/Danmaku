@@ -73,13 +73,18 @@ $(document).on("keyup",(e)=>{
                 levelselectmode(3,selectlevel);
                 break;
             case 13://enter
-                switch(selectlevel){
-                    case 0:enemyhp=100;break;
-                    case 1:enemyhp=200;break;
-                    case 2:enemyhp=300;break;
-                    case 3:enemyhp=10000;break;
-                }
-                startall();
+                var hpdata;
+                $.getJSON("../option.json",(data)=>{
+                    hpdata=data.hp;
+                    switch(selectlevel){
+                        case 0:enemyhp=hpdata[0];break;
+                        case 1:enemyhp=hpdata[1];break;
+                        case 2:enemyhp=hpdata[2];break;
+                        case 3:enemyhp=hpdata[3];break;
+                    }
+                    createjs.Sound.play("decision");
+                    startall();
+                });
                 break;
             case 77://m
                 if(e.ctrlKey){
@@ -214,8 +219,7 @@ function countdownmain(){
         des(countarray,0,countarray.length,0,countarray[0].length);
         countobj.destroy();
         cancelAnimationFrame(countdownmain);
-        movekeylock();
-        requestAnimationFrame(animate);
+        firsyenemymove();
     }else{
         requestAnimationFrame(countdownmain);
         countdownnum++;

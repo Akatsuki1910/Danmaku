@@ -8,7 +8,7 @@ var stage = new PIXI.Container();
 var renderer = PIXI.autoDetectRenderer(width, height,{
     resolution: 1,
     antialias: true,
-    transparent: true,
+    //transparent: true,
 });
 document.getElementById("pixiview").appendChild(renderer.view);
 window.onresize = function () {
@@ -152,4 +152,39 @@ function optionstart(){
 
     stage.addChild(grazemainobj);
     stage.addChild(grazeobj);
+}
+
+//json
+var sounds;
+var enemypic;
+var playerpic;
+$.ajaxSetup({async: false});
+$.getJSON("../option.json",(data)=>{
+    sounds=data.sound;
+    enemypic=data.enemy;
+    playerpic=data.player;
+});
+$.ajaxSetup({async: true});
+createjs.Sound.alternativeExtensions = ["wav"];
+createjs.Sound.registerSounds(sounds, "../");
+
+//graze
+var grazesound;
+var audio_boo = false;
+var grazesub=0;
+
+function grazesoundmain(){
+    if(Number(grazeobj.text)-grazesub!=0){
+        if(!audio_boo){
+            grazesound = createjs.Sound.play("graze-music");
+            audio_boo=true;
+        }
+    }else{
+        if(audio_boo){
+            if(grazesound){grazesound.stop();}
+            audio_boo=false;
+        }
+    }
+    if(!grazesound){audio_boo=false;}
+    grazesub=Number(grazeobj.text);
 }

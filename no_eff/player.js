@@ -89,10 +89,6 @@ function playerkey(playx,playy,min,max,event){
     }
 }
 
-var Interval;
-clearInterval(Interval);
-Interval = setInterval(exec, 1000/120);//120fps
-
 //player mouse
 var movex;
 var movey;
@@ -177,13 +173,18 @@ function addplayer(mas,num,rad,color,x,y){
         player[i][0].endFill();
         player[i][0].x=x;
         player[i][0].y=y;
+
+        player[i][1]=new PIXI.Sprite(PIXI.Texture.fromImage(playerpic[0].src));
+        player[i][1].anchor.x = 0.5;
+        player[i][1].anchor.y = 0.5;
+        player[i][1].x=player[i][0].x;
+        player[i][1].y=player[i][0].y;
     }
 }
 
-addplayer(0,1,5,"0xff00ff",x,y+200);
-
 function playerstart(){
     for(var i=0;i<player.length;i++){
+        stage.addChild(player[i][1]);
         stage.addChild(player[i][0]);
     }
 }
