@@ -6,11 +6,11 @@
 **fu\*k IE**
 
 ## GAME
-* 最新 (3/20)=>
+* 最新 (3/24)=>
 [latest](https://akatsuki1910.github.io/Danmaku/pc/main.html)<br>
-* 軽量版 (3/20)=>
+* 軽量版 (3/24)=>
 [no effect](https://akatsuki1910.github.io/Danmaku/no_eff/main.html)<br>
-* スマホ版 (3/4)=>
+* スマホ版 (3/24)=>
 [mobile](https://akatsuki1910.github.io/Danmaku/mobile/main.html)<br>
 
 ## 操作方法
