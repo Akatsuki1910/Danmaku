@@ -127,6 +127,7 @@ function addplayershot(rad,color,x,y){
     player_shot[i][0] = new PIXI.Graphics();
     player_shot[i][0].beginFill(color, 1);
     player_shot[i][0].drawCircle(0,0,rad);
+    player_shot[i][0].globalCompositeOperation = 'destination-over';
     player_shot[i][0].endFill();
     stage.addChild(player_shot[i][0]);
     player_shot[i][0].x=x;
@@ -144,13 +145,13 @@ function playershotmove(){
     for(var i=0;i<player_shot.length;i++){
         var sx = player_shot[i][0].x;
         var sy = player_shot[i][0].y;
-        ymove = sy-3;
+        ymove = sy-20;
         objset(i,sx,ymove,player_shot);
-        if(hitcheck(player_shot,enemy,i,i+1,3,10)==1){
+        if(hitcheck(player_shot,enemy,i,i+1,player[0][0].width/2,enemy[0][0].width/2)==1){
             if(player_shot[i][1]==0){
                 hpobj.text--;
                 if(hpobj.text==0){endflg=false;}
-                decHP(enemy,0,1,"0x000000",10+hpcircle);
+                decHP(enemy,0,1,enemy[0][0].width/2+hpcircle);
                 player_shot[i][0].destroy();
                 player_shot.splice(i, 1);
             }

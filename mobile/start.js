@@ -149,9 +149,8 @@ function countdownmain(){
     if(countobj.text==0){
         des(countarray,0,countarray.length,0,countarray[0].length);
         countobj.destroy();
-        movekeylock=true;
         cancelAnimationFrame(countdownmain);
-        requestAnimationFrame(animate);
+        firsyenemymove();
     }else{
         requestAnimationFrame(countdownmain);
         countdownnum++;

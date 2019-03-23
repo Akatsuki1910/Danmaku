@@ -8,7 +8,6 @@ var stage = new PIXI.Container();
 var renderer = PIXI.autoDetectRenderer(width, height,{
     resolution: 1,
     antialias: true,
-    //transparent: true,
 });
 document.getElementById("pixiview").appendChild(renderer.view);
 window.onresize = function () {
@@ -77,12 +76,28 @@ var fpsobj = new PIXI.Text(word, style);
 
 fpsobj.x=mojimainx;
 fpsobj.y=mojimainy*2;
+//#########################################
+
+//graze
+var word = "グレイズ";
+var style = {fontFamily : 'Arial',fontSize : '40px', fill:'white', fontWeight : "bold"};
+var grazemainobj = new PIXI.Text(word, style);
+
+grazemainobj.y=mojimainy*3;
+
+var word = "0";
+var style = {fontFamily : 'Arial',fontSize : '40px', fill:'white', fontWeight : "bold"};
+var grazeobj = new PIXI.Text(word, style);
+
+grazeobj.x=mojimainx;
+grazeobj.y=mojimainy*3;
+//#########################################
 
 //end
 var endflg = true;
 function endgame(){
     var word = "CLEAR";
-    var style = {fontFamily : 'Arial',fontSize : '60px', fill:'white'};
+    var style = {fontFamily : 'Arial',fontSize : '40px', fill:'white'};
     var clearobj = new PIXI.Text(word, style);
     clearobj.position.x = x;
     clearobj.position.y =y-70;
@@ -91,9 +106,9 @@ function endgame(){
     stage.addChild(clearobj);
 
     var word = "SCORE";
-    var score = (10000-fpsobj.text*(hitobj.text+0.01));
+    var score = (10000-(hitobj.text/100)+(grazeobj.text-fpsobj.text)*10);
     word+=" "+orgRound(score,5);
-    var style = {fontFamily : 'Arial',fontSize : '60px', fill:'white'};
+    var style = {fontFamily : 'Arial',fontSize : '40px', fill:'white'};
     var scoremainobj = new PIXI.Text(word, style);
     scoremainobj.position.x = x;
     scoremainobj.position.y = y;
@@ -102,13 +117,14 @@ function endgame(){
     stage.addChild(scoremainobj);
 
     var word = "ENTER";
-    var style = {fontFamily : 'Arial',fontSize : '60px', fill:'white'};
+    var style = {fontFamily : 'Arial',fontSize : '40px', fill:'white'};
     var oneobj = new PIXI.Text(word, style);
     oneobj.position.x = x;
     oneobj.position.y=y+100;
     oneobj.anchor.x = 0.5;
     oneobj.anchor.y = 0.5;
     stage.addChild(oneobj);
+
     oneobj.interactive = true;
     oneobj.on('touchstart', ()=>{
         location.reload();
@@ -130,4 +146,42 @@ function optionstart(){
 
     stage.addChild(fpsmainobj);
     stage.addChild(fpsobj);
+
+    stage.addChild(grazemainobj);
+    stage.addChild(grazeobj);
+}
+
+//json
+var sounds;
+var enemypic;
+var playerpic;
+$.ajaxSetup({async: false});
+$.getJSON("../option.json",(data)=>{
+    sounds=data.sound;
+    enemypic=data.enemy;
+    playerpic=data.player;
+});
+$.ajaxSetup({async: true});
+createjs.Sound.alternativeExtensions = ["wav"];
+createjs.Sound.registerSounds(sounds, "../");
+
+//graze
+var grazesound;
+var audio_boo = false;
+var grazesub=0;
+
+function grazesoundmain(){
+    if(Number(grazeobj.text)-grazesub!=0){
+        if(!audio_boo){
+            grazesound = createjs.Sound.play("graze-music");
+            audio_boo=true;
+        }
+    }else{
+        if(audio_boo){
+            if(grazesound){grazesound.stop();}
+            audio_boo=false;
+        }
+    }
+    if(!grazesound){audio_boo=false;}
+    grazesub=Number(grazeobj.text);
 }

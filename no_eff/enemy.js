@@ -2,7 +2,7 @@
 //enemy
 var circle = [];
 var obj_shot=60;//object
-var u = 4;//number
+var u = 1;//number
 var pi = Math.PI/180;
 var grazespace = 4;
 var hpcircle = 20;
@@ -17,7 +17,7 @@ function addenemy(mas,num,rad,color,x,y){
         enemy[i][0].drawCircle(0,0,rad);
         enemy[i][0].endFill();
         enemy[i][0].x=x;
-        enemy[i][0].y=y;
+        enemy[i][0].y=-(enemy[0][0].width/2+hpcircle+hpbar);
         //HP
         enemy[i][1] = new PIXI.Graphics();
         enemy[i][1].lineStyle(hpbar, 0xff00ff, 1);
@@ -33,6 +33,7 @@ function addobj(mas,num,rad,color,x,y,obj){
         obj[i][0] = new PIXI.Graphics();
         obj[i][0].beginFill(color, 1);
         obj[i][0].drawCircle(0,0,rad);
+        obj[i][0].globalCompositeOperation = 'destination-over';
         obj[i][0].endFill();
 
         obj[i][0].x=x;
@@ -59,16 +60,18 @@ function grazecheck(obj,tar,p,q,orad,trad){
     var tarx = tar[0][0].x;
     var tary = tar[0][0].y;
     for(var i=p;i<q;i++){
-        var objx = obj[i][0].x;
-        var objy = obj[i][0].y;
-        var sla = (tarx-objx)**2+(tary-objy)**2;// jshint ignore:line
-        if(sla<=(orad+trad)**2 && sla>(orad+trad-grazespace)**2){// jshint ignore:line
-            grazeobj.text++;
+        if(obj[i][0]!=null){
+            var objx = obj[i][0].x;
+            var objy = obj[i][0].y;
+            var sla = (tarx-objx)**2+(tary-objy)**2;// jshint ignore:line
+            if(sla<=(orad+trad)**2 && sla>(orad+trad-grazespace)**2){// jshint ignore:line
+                grazeobj.text++;
+            }
         }
     }
 }
 
-function decHP(obj,min,max,col,rad){
+function decHP(obj,min,max,rad){
     for(var i=min;i<max;i++){
         var pi = Math.PI/180;
         obj[i][1].clear();
@@ -79,11 +82,10 @@ function decHP(obj,min,max,col,rad){
     }
 }
 
-function changecolor(obj,min,max,col,rad){
+function nextshot(obj,tar,min,max,col,rad){
+    var obx=tar[0][0].x;
+    var oby=tar[0][0].y;
     for(var i=min;i<max;i++){
-        var obx=obj[i][0].x;
-        var oby=obj[i][0].y;
-        obj[i][0].clear();
         obj[i][0].beginFill(col);
         obj[i][0].drawCircle(0,0,rad);
         obj[i][0].x=obx;
@@ -96,9 +98,9 @@ function objset(num,x,y,obj){
     obj[num][0].y=y;
 }
 
-function colorX(obj){
-    return ('0000000000' + obj).slice(-6);
-}
+//function colorX(obj){
+//    return ('0000000000' + obj).slice(-6);
+//}
 
 function enemystart(obj){
     for(var i=0;i<obj.length;i++){

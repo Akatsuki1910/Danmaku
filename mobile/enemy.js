@@ -2,9 +2,11 @@
 //enemy
 var circle = [];
 var obj_shot=60;//object
-var u = 4;//number
+var u = 1;//number
 var pi = Math.PI/180;
-var hpcircle;
+var grazespace = 4;
+var hpcircle = 40;
+var hpbar = 4;
 
 function addenemy(mas,num,rad,color,x,y){
     for(var i=mas;i<num+mas;i++){
@@ -15,27 +17,11 @@ function addenemy(mas,num,rad,color,x,y){
         enemy[i][0].drawCircle(0,0,rad);
         enemy[i][0].endFill();
         enemy[i][0].x=x;
-        enemy[i][0].y=y;
+        enemy[i][0].y=-(enemy[0][0].width/2+hpcircle+hpbar);
         //HP
-        hpcircle = enemymainrad/2;
-        enemy[i][3] = new PIXI.Graphics();
-        enemy[i][3].beginFill("0xff00ff", 1);
-        enemy[i][3].drawCircle(0,0,rad+hpcircle);
-        enemy[i][3].endFill();
-        enemy[i][3].x=enemy[i][0].x;
-        enemy[i][3].y=enemy[i][0].y;
-        //hole
-        enemy[i][2] = new PIXI.Graphics();
-        enemy[i][2].beginFill("0x000000", 1);
-        enemy[i][2].drawCircle(0,0,rad+hpcircle-2*(enemymainrad/10));
-        enemy[i][2].endFill();
-        enemy[i][2].x=enemy[i][0].x;
-        enemy[i][2].y=enemy[i][0].y;
-        //gage
         enemy[i][1] = new PIXI.Graphics();
-        enemy[i][1].beginFill("0x000000", 1);
-        enemy[i][1].arc(0,0,rad+hpcircle,-pi*0,pi*(360), true);
-        enemy[i][1].endFill();
+        enemy[i][1].lineStyle(hpbar, 0xff00ff, 1);
+        enemy[i][1].arc(0,0,rad+hpcircle,0,Math.PI*2, false);
         enemy[i][1].x=enemy[i][0].x;
         enemy[i][1].y=enemy[i][0].y;
     }
@@ -47,6 +33,7 @@ function addobj(mas,num,rad,color,x,y,obj){
         obj[i][0] = new PIXI.Graphics();
         obj[i][0].beginFill(color, 1);
         obj[i][0].drawCircle(0,0,rad);
+        obj[i][0].globalCompositeOperation = 'destination-over';
         obj[i][0].endFill();
 
         obj[i][0].x=x;
@@ -54,50 +41,51 @@ function addobj(mas,num,rad,color,x,y,obj){
     }
 }
 
-var enemymainrad=20;
-var enemyshotrad=10;
-addenemy(0,1,enemymainrad,"0xffff00",x,y);
-addobj(0,obj_shot*u,enemyshotrad,"0x0000ff",x,y,circle);
-
 function hitcheck(obj,tar,p,q,orad,trad){
-    orad=orad/2+1;
-    trad=trad/2+1;
     var point=0;
-    var minx = tar[0][0].x-trad;
-    var maxx = tar[0][0].x+trad;
-    var miny = tar[0][0].y-trad;
-    var maxy = tar[0][0].y+trad;
+    var tarx = tar[0][0].x;
+    var tary = tar[0][0].y;
     for(var i=p;i<q;i++){
-        var shot_minx = obj[i][0].x-orad;
-        var shot_maxx = obj[i][0].x+orad;
-        var shot_miny = obj[i][0].y-orad;
-        var shot_maxy = obj[i][0].y+orad;
-        if((minx<shot_maxx && maxx>shot_minx) && (miny<shot_maxy && maxy>shot_miny)){
+        var objx = obj[i][0].x;
+        var objy = obj[i][0].y;
+        if((tarx-objx)**2+(tary-objy)**2<=(orad+trad-grazespace)**2){// jshint ignore:line
             point=1;
             break;
         }
     }
-
     return point;
 }
 
-function decHP(obj,min,max,col,rad){
+function grazecheck(obj,tar,p,q,orad,trad){
+    var tarx = tar[0][0].x;
+    var tary = tar[0][0].y;
+    for(var i=p;i<q;i++){
+        if(obj[i][0]!=null){
+            var objx = obj[i][0].x;
+            var objy = obj[i][0].y;
+            var sla = (tarx-objx)**2+(tary-objy)**2;// jshint ignore:line
+            if(sla<=(orad+trad)**2 && sla>(orad+trad-grazespace)**2){// jshint ignore:line
+                grazeobj.text++;
+            }
+        }
+    }
+}
+
+function decHP(obj,min,max,rad){
     for(var i=min;i<max;i++){
         var pi = Math.PI/180;
         obj[i][1].clear();
-        obj[i][1].beginFill(col, 1);
-        obj[i][1].arc(0,0,rad,-pi*0,-pi*(360*(enemyhp-hpobj.text)/enemyhp), true);
-        obj[i][1].lineTo(0,0);
+        enemy[i][1].lineStyle(hpbar, 0xff00ff, 1);
+        obj[i][1].arc(0,0,rad,0,-pi*(360*(enemyhp-hpobj.text)/enemyhp), false);
         obj[i][1].x=obj[i][0].x;
         obj[i][1].y=obj[i][0].y;
     }
 }
 
-function changecolor(obj,min,max,col,rad){
+function nextshot(obj,tar,min,max,col,rad){
+    var obx=tar[0][0].x;
+    var oby=tar[0][0].y;
     for(var i=min;i<max;i++){
-        var obx=obj[i][0].x;
-        var oby=obj[i][0].y;
-        obj[i][0].clear();
         obj[i][0].beginFill(col);
         obj[i][0].drawCircle(0,0,rad);
         obj[i][0].x=obx;
@@ -110,9 +98,9 @@ function objset(num,x,y,obj){
     obj[num][0].y=y;
 }
 
-function colorX(obj){
-    return ('0000000000' + obj).slice(-6);
-}
+//function colorX(obj){
+//    return ('0000000000' + obj).slice(-6);
+//}
 
 function enemystart(obj){
     for(var i=0;i<obj.length;i++){
@@ -120,8 +108,24 @@ function enemystart(obj){
     }
 
     for(var a=0;a<enemy.length;a++){
-        for(var b=enemy[a].length-1;b>=0;b--){
+        for(var b=0;b<enemy[a].length;b++){
             stage.addChild(enemy[a][b]);
         }
+    }
+}
+
+function firsyenemymove(){
+    renderer.render(stage);
+    enemy[0][0].y+=2;
+    positionset(enemy);
+    for(var t=0;t<circle.length;t++){
+        objset(t,enemy[0][0].x,enemy[0][0].y,circle);
+    }
+    if(y<=enemy[0][0].y){
+        cancelAnimationFrame(firsyenemymove);
+        movekeylock=true;
+        animate();
+    }else{
+        requestAnimationFrame(firsyenemymove);
     }
 }
