@@ -147,19 +147,3 @@ function startall(){
 }
 //レンダリング
 renderer.render(stage);
-
-//countdown
-var countarray=[];
-var countdownnum=0;
-
-function countdown(obj,min,max,col,rad){
-    for(var i=min;i<max;i++){
-        var pi = Math.PI/180;
-        obj[i][1].clear();
-        obj[i][1].beginFill(col, 1);
-        obj[i][1].arc(0,0,rad,-pi*0,-pi*(360*(60-countdownnum)/60), true);
-        obj[i][1].lineTo(0,0);
-        obj[i][1].x=obj[i][0].x;
-        obj[i][1].y=obj[i][0].y;
-    }
-}
