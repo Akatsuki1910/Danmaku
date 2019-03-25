@@ -2,7 +2,7 @@
 //enemy
 var circle = [];
 var obj_shot=60;//object
-var u = 1;//number
+var u = 11;//number
 var pi = Math.PI/180;
 var grazespace = 4;
 var hpcircle = 20;
@@ -82,14 +82,13 @@ function decHP(obj,min,max,rad){
     }
 }
 
-function nextshot(obj,tar,min,max,col,rad){
-    var obx=tar[0][0].x;
-    var oby=tar[0][0].y;
+function nextshot(obj,min,max,col,rad,obx=enemy[0][0].x,oby=enemy[0][0].y){
     for(var i=min;i<max;i++){
         obj[i][0].beginFill(col);
         obj[i][0].drawCircle(0,0,rad);
         obj[i][0].x=obx;
         obj[i][0].y=oby;
+        obj[i][0].clearDirty=0;
     }
 }
 
