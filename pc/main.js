@@ -47,7 +47,7 @@ function animate(){
     //}
     //randommove();
 
-    if(time%120==0){
+    if(time%qed_fra==0){
         for(var i=0;i<u;i++){
             if(qed_boo[i]==false){
                 qed_boo[i]=true;
@@ -138,7 +138,7 @@ function han(ang,xy,i){
 }
 
 
-
+var qed_fra=120;
 var qed_boo =[];
 for(var i=0;i<u;i++){
     qed_boo[i]=false;
