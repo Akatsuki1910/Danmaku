@@ -143,7 +143,6 @@ function startall(){
     enemystart(circle);
     playerstart();
 
-    addcount(0,1,50,"0x000000",x,y);
     firsyenemymove();
 }
 //レンダリング
@@ -162,39 +161,5 @@ function countdown(obj,min,max,col,rad){
         obj[i][1].lineTo(0,0);
         obj[i][1].x=obj[i][0].x;
         obj[i][1].y=obj[i][0].y;
-    }
-}
-
-function addcount(mas,num,rad,color,x,y){
-    for(var i=mas;i<num+mas;i++){
-        countarray[i]= [];
-
-        countarray[i][0] = new PIXI.Graphics();
-        countarray[i][0].beginFill(color, 1);
-        countarray[i][0].drawCircle(0,0,rad);
-        countarray[i][0].endFill();
-        countarray[i][0].x=x;
-        countarray[i][0].y=y;
-
-        countarray[i][3] = new PIXI.Graphics();
-        countarray[i][3].beginFill("0xffffff", 1);
-        countarray[i][3].drawCircle(0,0,rad*2);
-        countarray[i][3].endFill();
-        countarray[i][3].x=countarray[i][0].x;
-        countarray[i][3].y=countarray[i][0].y;
-
-        countarray[i][2] = new PIXI.Graphics();
-        countarray[i][2].beginFill("0x000000", 1);
-        countarray[i][2].drawCircle(0,0,rad*2-5);
-        countarray[i][2].endFill();
-        countarray[i][2].x=countarray[i][0].x;
-        countarray[i][2].y=countarray[i][0].y;
-
-        countarray[i][1] = new PIXI.Graphics();
-        countarray[i][1].beginFill("0x000000", 1);
-        countarray[i][1].arc(0,0,rad*2,-pi*0,pi*(360), true);
-        countarray[i][1].endFill();
-        countarray[i][1].x=countarray[i][0].x;
-        countarray[i][1].y=countarray[i][0].y;
     }
 }
