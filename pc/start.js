@@ -144,8 +144,7 @@ function startall(){
     playerstart();
 
     addcount(0,1,50,"0x000000",x,y);
-    countstart(countarray);
-    countdownmain();
+    firsyenemymove();
 }
 //レンダリング
 renderer.render(stage);
@@ -197,37 +196,5 @@ function addcount(mas,num,rad,color,x,y){
         countarray[i][1].endFill();
         countarray[i][1].x=countarray[i][0].x;
         countarray[i][1].y=countarray[i][0].y;
-    }
-}
-
-var word = "3";
-var style = {fontFamily : 'Arial',fontSize : '40px', fill:'white', fontWeight : "bold"};
-var countobj = new PIXI.Text(word, style);
-
-countobj.x=x-10;
-countobj.y=y-20;
-
-function countstart(obj){
-    for(var i=obj[0].length-1;i>=0;i--){
-        stage.addChild(obj[0][i]);
-    }
-    stage.addChild(countobj);
-}
-
-function countdownmain(){
-    if(countobj.text==0){
-        des(countarray,0,countarray.length,0,countarray[0].length);
-        countobj.destroy();
-        cancelAnimationFrame(countdownmain);
-        firsyenemymove();
-    }else{
-        requestAnimationFrame(countdownmain);
-        countdownnum++;
-        if(countdownnum>=60){
-            countobj.text--;
-            countdownnum=0;
-        }
-        countdown(countarray,0,1,"0x000000",100);
-        renderer.render(stage);
     }
 }
