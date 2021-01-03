@@ -1,6 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const MODE = "development";
 // const MODE = "production";
@@ -81,9 +81,7 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       THREE: 'three',
-      PIXI: 'pixi.js',
-      createjs: 'createjs',
-      Sound: 'soundjs'
+      PIXI: 'pixi.js'
     })
   ],
   target: ["web", "es5"],
