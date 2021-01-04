@@ -1,32 +1,27 @@
-import "./css/style.scss";
+/*global PIXI: false */
 
-//don't move
-var width = window.innerWidth;
-var height = window.innerHeight;
-var x = width / 2;
-var y = height / 2;
-var stage = new PIXI.Container();
-var renderer = PIXI.autoDetectRenderer({
+import './css/style.scss';
+import Option from './option';
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+const stage = new PIXI.Container();
+const renderer = PIXI.autoDetectRenderer({
   width: width, 
   height: height,
   resolution: 1,
   antialias: true,
   transparent: true,
 });
-document.getElementById("pixiview").appendChild(renderer.view);
+document.getElementById('pixiview').appendChild(renderer.view);
 window.onresize = function () {
   location.reload();
 };
-var player = [];
-var enemy = [];
-var enemyhp;
 
-import "./option.js";
+const enemyHP = new Option('敵HP');
 
-import "./effect.js";
-import "./enemy.js";
-import "./loading.js";
-import "./main.js";
-import "./player.js";
-import "./start.js";
-import "./title.js";
+(function animation() {
+	renderer.render(stage);
+		cancelAnimationFrame(animation);
+		requestAnimationFrame(animation);
+})();
