@@ -1,5 +1,5 @@
 export default class Option {
-	constructor(stage) {
+	constructor(stage, text, text2, i) {
 		this.stage = stage;
 		this.textWidth = 240;
 		this.textHeight = 50;
@@ -9,21 +9,21 @@ export default class Option {
 			fill: 'white',
 			fontWeight: 'bold'
 		};
-	}
-
-	textAdd(text, text2, i) {
-		const textObj = {
+		this.textObj = {
 			text: '',
 			score: '',
 		};
-		textObj.text = new PIXI.Text(text, this.textStyle);
-		textObj.text.y = this.textHeight * i;
-		this.stage.addChild(textObj.text);
+		this.textAdd(text, text2, i);
+	}
 
-		textObj.score = new PIXI.Text(text2, this.textStyle);
-		textObj.score.x = this.textWidth;
-		textObj.score.y = this.textHeight * i;
-		this.stage.addChild(textObj.score);
-		return textObj;
+	textAdd(text, text2, i) {
+		this.textObj.text = new PIXI.Text(text, this.textStyle);
+		this.textObj.text.y = this.textHeight * i;
+		this.stage.addChild(this.textObj.text);
+
+		this.textObj.score = new PIXI.Text(text2, this.textStyle);
+		this.textObj.score.x = this.textWidth;
+		this.textObj.score.y = this.textHeight * i;
+		this.stage.addChild(this.textObj.score);
 	}
 }

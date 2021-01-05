@@ -1,10 +1,10 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const MODE = "development";
-// const MODE = "production";
-const enabledSourceMap = MODE === "development";
+const MODE = 'development';
+// const MODE = 'production';
+const enabledSourceMap = MODE === 'development';
 
 module.exports = {
   mode: MODE,
@@ -13,10 +13,10 @@ module.exports = {
   watchOptions: {
     ignored: /node_modules/
   },
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
     path: `${__dirname}/public`,
-    filename: "main.js",
+    filename: 'main.js',
   },
 
   module: {
@@ -26,7 +26,7 @@ module.exports = {
           loader: MiniCssExtractPlugin.loader,
         },
         {
-          loader: "css-loader",
+          loader: 'css-loader',
           options: {
             url: false,
             sourceMap: enabledSourceMap,
@@ -34,7 +34,7 @@ module.exports = {
           },
         },
         {
-          loader: "sass-loader",
+          loader: 'sass-loader',
           options: {
             sourceMap: enabledSourceMap,
           },
@@ -42,7 +42,7 @@ module.exports = {
       ],
     }, {
       test: /\.html$/,
-      loader: "html-loader"
+      loader: 'html-loader'
     }, {
       test: /\.(jpe?g|png|gif|svg|ico)$/i,
       loader: 'url-loader',
@@ -73,10 +73,10 @@ module.exports = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "style.css",
+      filename: 'style.css',
     }),
     new HtmlWebpackPlugin({
-      template: "./src/html/index.html"
+      template: './src/html/index.html'
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
@@ -84,5 +84,5 @@ module.exports = {
       PIXI: 'pixi.js'
     })
   ],
-  target: ["web", "es5"],
+  target: ['web', 'es5'],
 };
