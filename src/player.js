@@ -2,7 +2,7 @@ export default class Player {
 	constructor(stage) {
 		this.x = 0;
 		this.y = 0;
-		this.moveSpeed = 2;
+		this.moveSpeed = 5;
 		this.slowMoveSpeed = this.moveSpeed / 2;
 		this.player = {
 			hitPoint: '',
@@ -66,7 +66,6 @@ export default class Player {
 				this.shot();
 				break;
 		}
-		console.log(key, shift);
 	}
 
 	shot() {
@@ -85,7 +84,7 @@ export default class Player {
 	animation(t) {
 		this.time = t;
 		for (const i in this.shotArr) {
-			this.shotArr[i].y -= 3;
+			this.shotArr[i].y -= 10;
 			if (this.shotArr[i].y === 0) {
 				this.shotArr[i].destroy();
 				this.shotArr.splice(i, 1);

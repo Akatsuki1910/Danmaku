@@ -9,25 +9,23 @@ const pressKeyArr = {
 };
 
 export function keyPush(e) {
-	switch (e.code) {
-		case 'ArrowUp':
-			pressKeyArr.Up = this.keyPush;
-			break;
-		case 'ArrowLeft':
-			pressKeyArr.Left = this.keyPush;
-			break;
-		case 'ArrowDown':
-			pressKeyArr.Down = this.keyPush;
-			break;
-		case 'ArrowRight':
-			pressKeyArr.Right = this.keyPush;
-			break;
-		case 'KeyZ':
-			pressKeyArr.Z = this.keyPush;
-			break;
-		case 'KeyX':
-			pressKeyArr.X = this.keyPush;
-			break;
+	if (e.code === 'ArrowUp') {
+		pressKeyArr.Up = this.keyPush;
+	}
+	if (e.code === 'ArrowLeft') {
+		pressKeyArr.Left = this.keyPush;
+	}
+	if (e.code === 'ArrowDown') {
+		pressKeyArr.Down = this.keyPush;
+	}
+	if (e.code === 'ArrowRight') {
+		pressKeyArr.Right = this.keyPush;
+	}
+	if (e.code === 'KeyZ') {
+		pressKeyArr.Z = this.keyPush;
+	}
+	if (e.code === 'KeyX') {
+		pressKeyArr.X = this.keyPush;
 	}
 	pressKeyArr.Shift = e.shiftKey;
 }
