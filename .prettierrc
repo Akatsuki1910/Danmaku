@@ -1,4 +1,6 @@
 {
+	"semi": false,
+	"singleQuote": true,
 	"esversion": 6,
 	"unused": true,
 	"indent": 2,
@@ -11,5 +13,5 @@
 	"quotmark": "single",
 	"undef": true,
 	"trailing": true,
-	"browser" : true
+	"browser": true
 }
