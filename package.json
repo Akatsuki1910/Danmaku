@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Akatsuki1910/Danmaku#readme",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.0.0-beta.2",
+    "@types/three": "^0.127.1",
     "sass": "^1.32.12"
   },
   "dependencies": {

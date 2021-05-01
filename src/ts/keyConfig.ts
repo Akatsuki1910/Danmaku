@@ -1,4 +1,5 @@
 import Player from './player'
+import * as THREE from 'three'
 
 const pressKeyArr = {
   Up: false,
@@ -34,18 +35,24 @@ export function keyPush(e: KeyboardEvent, keyPush: boolean) {
 
 export function pressKey(player: Player) {
   const shift = pressKeyArr.Shift
+  let x = 0
+  let y = 0
   if (pressKeyArr.Up) {
-    player.moveUp(shift)
+    y -= 1
   }
   if (pressKeyArr.Left) {
-    player.moveLeft(shift)
+    x -= 1
   }
   if (pressKeyArr.Down) {
-    player.moveDown(shift)
+    y += 1
   }
   if (pressKeyArr.Right) {
-    player.moveRight(shift)
+    x += 1
   }
+  const m = new THREE.Vector2(x, y).normalize()
+  const r = m.rotateAround(new THREE.Vector2(), 0)
+  player.move({ x: r.x, y: r.y }, shift)
+
   if (pressKeyArr.Z) {
     player.pushKey('z', shift)
   }

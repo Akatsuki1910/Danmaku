@@ -30,4 +30,8 @@ export default class Option {
     this.textObj.score.y = this.textHeight * i
     this.stage.addChild(this.textObj.score)
   }
+
+  textSet(text: string | number) {
+    this.textObj.score.text = String(text)
+  }
 }
