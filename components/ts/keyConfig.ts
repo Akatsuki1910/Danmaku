@@ -1,5 +1,5 @@
-import Player from './player'
 import * as THREE from 'three'
+import Player from './player'
 
 const pressKeyArr = {
   Up: false,

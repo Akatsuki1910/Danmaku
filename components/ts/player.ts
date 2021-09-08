@@ -19,7 +19,7 @@ export default class Player extends Target {
     this.moveTarget()
   }
 
-  pushKey(key: string, shift: boolean) {
+  pushKey(key: string, _shift: boolean) {
     switch (key) {
       case 'z':
         this.pShot()

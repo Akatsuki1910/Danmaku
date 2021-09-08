@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js'
 export default class Target {
   x: number
   y: number
-  target: { hitPoint: PIXI.Graphics; texture: PIXI.Graphics }
+  target!: { hitPoint: PIXI.Graphics | null; texture: PIXI.Graphics | null }
   stage: PIXI.Container
   renderer: PIXI.AbstractRenderer
   shotArr: PIXI.Graphics[]
@@ -44,10 +44,10 @@ export default class Target {
   }
 
   moveTarget() {
-    this.target.hitPoint.x = this.x
-    this.target.hitPoint.y = this.y
-    this.target.texture.x = this.x
-    this.target.texture.y = this.y
+    this.target.hitPoint!.x = this.x
+    this.target.hitPoint!.y = this.y
+    this.target.texture!.x = this.x
+    this.target.texture!.y = this.y
   }
 
   shot(color: number, rad: number, x: number = this.x, y: number = this.y) {
@@ -78,9 +78,9 @@ export default class Target {
     for (let i = 0; i < arr.length; i++) {
       if (
         Math.sqrt(
-          Math.pow(this.x - arr[i].x, 2) + Math.pow(this.y - arr[i].y, 2)
+          Math.pow(this.x - arr[i].x, 2) + Math.pow(this.y - arr[i].y, 2),
         ) <=
-        (arr[i].width + this.target.hitPoint.width) / 2
+        (arr[i].width + this.target.hitPoint!.width) / 2
       ) {
         hitFlag = true
         break

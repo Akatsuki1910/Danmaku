@@ -18,6 +18,7 @@ export default class Enemy extends Target {
   }
 
   hit(arr: PIXI.Graphics[]) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const f = this.hitTarget(arr)
   }
 
