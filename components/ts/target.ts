@@ -73,10 +73,10 @@ export default class Target {
 
   protected shotDestroy(i: number) {
     if (
-      this.shotArr[i].y < 0 ||
-      this.shotArr[i].y > this.renderer.height ||
-      this.shotArr[i].x < 0 ||
-      this.shotArr[i].x > this.renderer.width
+      this.shotArr[i].y < -this.shotArr[i].height ||
+      this.shotArr[i].y > this.renderer.height + this.shotArr[i].height ||
+      this.shotArr[i].x < -this.shotArr[i].width ||
+      this.shotArr[i].x > this.renderer.width + this.shotArr[i].width
     ) {
       this.shotArr[i].destroy()
       this.shotArr.splice(i, 1)

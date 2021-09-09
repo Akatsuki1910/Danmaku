@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 
 export default class Option {
-  stage: any
+  stage: PIXI.Container
   textWidth: number
   textHeight: number
   textStyle: PIXI.TextStyle

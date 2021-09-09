@@ -54,6 +54,10 @@ export default class Danmaku {
     this.animation()
   }
 
+  public get dTime() {
+    return this.time
+  }
+
   private animation() {
     this.renderer.render(this.stage)
     pressKey(this.player)
@@ -65,6 +69,6 @@ export default class Danmaku {
     this.toTime.textSet(this.time)
     this.toScore.textSet(this.player.hitCount)
     this.time++
-    requestAnimationFrame(this.animation)
+    requestAnimationFrame(this.animation.bind(this))
   }
 }
