@@ -1,58 +1,69 @@
 // import
 import * as PIXI from 'pixi.js'
-
-// import '../css/style.scss'
 import Option from './option'
 import Player from './player'
 import Enemy from './enemy'
 import { keyPush, pressKey } from './keyConfig'
 
 // default
-const width = 500 // window.innerWidth
-const height = 500 // window.innerHeight
-const stage = new PIXI.Container()
-const renderer = PIXI.autoDetectRenderer({
-  width,
-  height,
-  resolution: 1,
-  antialias: true,
-  // transparent: true,
-})
-document.body.appendChild(renderer.view)
-window.onresize = function () {
-  location.reload()
+export default class Danmaku {
+  stage: PIXI.Container
+  renderer: PIXI.AbstractRenderer
+  toTime: Option
+  toScore: Option
+  enemy: Enemy
+  player: Player
+  time: number
+  constructor() {
+    const width = 500 // window.innerWidth
+    const height = 500 // window.innerHeight
+    this.stage = new PIXI.Container()
+    this.renderer = PIXI.autoDetectRenderer({
+      width,
+      height,
+      resolution: 1,
+      antialias: true,
+      // transparent: true,
+    })
+    document.body.appendChild(this.renderer.view)
+    window.onresize = function () {
+      location.reload()
+    }
+
+    // text object
+    this.toTime = new Option(this.stage, 'TIME', 0, 0)
+    this.toScore = new Option(this.stage, 'SCORE', 0, 1)
+
+    this.enemy = new Enemy(this.stage, this.renderer)
+    this.player = new Player(this.stage, this.renderer)
+
+    window.onload = () => {
+      document.body.addEventListener('keyup', (e) => {
+        keyPush(e, false)
+      })
+      document.body.addEventListener('keydown', (e) => {
+        keyPush(e, true)
+      })
+    }
+
+    this.time = 0
+  }
+
+  start() {
+    this.animation()
+  }
+
+  animation() {
+    this.renderer.render(this.stage)
+    pressKey(this.player)
+    this.player.animation(this.time)
+    this.enemy.animation(this.time)
+    this.player.hit(this.enemy.shotArr)
+    this.enemy.hit(this.player.shotArr)
+
+    this.toTime.textSet(this.time)
+    this.toScore.textSet(this.player.hitCount)
+    this.time++
+    requestAnimationFrame(this.animation)
+  }
 }
-
-// text object
-const toTime = new Option(stage, 'TIME', 0, 0)
-const toScore = new Option(stage, 'SCORE', 0, 1)
-
-const enemy = new Enemy(stage, renderer)
-const player = new Player(stage, renderer)
-
-window.onload = () => {
-  document.body.addEventListener('keyup', (e) => {
-    keyPush(e, false)
-  })
-  document.body.addEventListener('keydown', (e) => {
-    keyPush(e, true)
-  })
-}
-
-let time = 0
-function animation() {
-  renderer.render(stage)
-  pressKey(player)
-  player.animation(time)
-  enemy.animation(time)
-  player.hit(enemy.shotArr)
-  enemy.hit(player.shotArr)
-
-  toTime.textSet(time)
-  toScore.textSet(player.hitCount)
-  // cancelAnimationFrame(animation);
-  time++
-  requestAnimationFrame(animation)
-}
-
-animation()

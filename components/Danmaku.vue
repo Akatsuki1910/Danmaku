@@ -1,6 +1,11 @@
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
-import './ts/index'
+import Danmaku from './ts/index'
 @Component({})
-export default class Danmaku extends Vue {}
+export default class Danmakustage extends Vue {
+  mounted() {
+    const d = new Danmaku()
+    d.start()
+  }
+}
 </script>
