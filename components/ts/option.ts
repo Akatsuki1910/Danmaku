@@ -20,7 +20,7 @@ export default class Option {
     this.textAdd(text, text2, i)
   }
 
-  textAdd(text: string, text2: number, i: number) {
+  private textAdd(text: string, text2: number, i: number) {
     this.textObj.text! = new PIXI.Text(text, this.textStyle)
     this.textObj.text!.y = this.textHeight * i
     this.stage.addChild(this.textObj.text)
@@ -31,7 +31,7 @@ export default class Option {
     this.stage.addChild(this.textObj.score)
   }
 
-  textSet(text: string | number) {
+  public textSet(text: string | number) {
     this.textObj.score!.text = String(text)
   }
 }

@@ -7,14 +7,15 @@ import { keyPush, pressKey } from './keyConfig'
 
 // default
 export default class Danmaku {
-  stage: PIXI.Container
-  renderer: PIXI.AbstractRenderer
-  toTime: Option
-  toScore: Option
-  enemy: Enemy
-  player: Player
-  time: number
-  constructor() {
+  private stage: PIXI.Container
+  private renderer: PIXI.AbstractRenderer
+  private toTime: Option
+  private toScore: Option
+  private enemy: Enemy
+  private player: Player
+  private time: number
+
+  constructor(ele: HTMLElement) {
     const width = 500 // window.innerWidth
     const height = 500 // window.innerHeight
     this.stage = new PIXI.Container()
@@ -25,7 +26,7 @@ export default class Danmaku {
       antialias: true,
       // transparent: true,
     })
-    document.body.appendChild(this.renderer.view)
+    ele.appendChild(this.renderer.view)
     window.onresize = function () {
       location.reload()
     }
@@ -49,11 +50,11 @@ export default class Danmaku {
     this.time = 0
   }
 
-  start() {
+  public start() {
     this.animation()
   }
 
-  animation() {
+  private animation() {
     this.renderer.render(this.stage)
     pressKey(this.player)
     this.player.animation(this.time)

@@ -1,28 +1,33 @@
 import * as PIXI from 'pixi.js'
 
 export default class Target {
-  x: number
-  y: number
-  target!: { hitPoint: PIXI.Graphics | null; texture: PIXI.Graphics | null }
-  stage: PIXI.Container
-  renderer: PIXI.AbstractRenderer
-  shotArr: PIXI.Graphics[]
-  time: number
+  protected x: number
+  protected y: number
+  protected target!: {
+    hitPoint: PIXI.Graphics | null
+    texture: PIXI.Graphics | null
+  }
+
+  protected stage: PIXI.Container
+  protected renderer: PIXI.AbstractRenderer
+  protected time: number
+  public shotArr: PIXI.Graphics[]
+
   constructor(stage: PIXI.Container, renderer: PIXI.AbstractRenderer) {
     this.x = 0
     this.y = 0
     this.target = { hitPoint: null, texture: null }
     this.stage = stage
     this.renderer = renderer
-    this.shotArr = []
     this.time = 0
+    this.shotArr = []
   }
 
   // hitpoint color
   //          range
   // texture  color
   //          range
-  createTarget(hc: number, hr: number, tc: number, tr: number) {
+  protected createTarget(hc: number, hr: number, tc: number, tr: number) {
     this.target.hitPoint = new PIXI.Graphics()
     this.target.hitPoint.beginFill(hc, 1)
     this.target.hitPoint.drawCircle(0, 0, hr)
@@ -43,14 +48,19 @@ export default class Target {
     this.stage.addChild(this.target.hitPoint)
   }
 
-  moveTarget() {
+  protected moveTarget() {
     this.target.hitPoint!.x = this.x
     this.target.hitPoint!.y = this.y
     this.target.texture!.x = this.x
     this.target.texture!.y = this.y
   }
 
-  shot(color: number, rad: number, x: number = this.x, y: number = this.y) {
+  protected shot(
+    color: number,
+    rad: number,
+    x: number = this.x,
+    y: number = this.y,
+  ) {
     const shot = new PIXI.Graphics()
     shot.beginFill(color, 1)
     shot.drawCircle(0, 0, rad)
@@ -61,7 +71,7 @@ export default class Target {
     this.shotArr.push(shot)
   }
 
-  shotDestroy(i: number) {
+  protected shotDestroy(i: number) {
     if (
       this.shotArr[i].y < 0 ||
       this.shotArr[i].y > this.renderer.height ||
@@ -73,7 +83,7 @@ export default class Target {
     }
   }
 
-  hitTarget(arr: PIXI.Graphics[]) {
+  protected hitTarget(arr: PIXI.Graphics[]) {
     let hitFlag = false
     for (let i = 0; i < arr.length; i++) {
       if (

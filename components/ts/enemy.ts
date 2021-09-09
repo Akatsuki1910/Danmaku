@@ -11,18 +11,18 @@ export default class Enemy extends Target {
     this.moveTarget()
   }
 
-  move(angle: number) {
+  public move(angle: number) {
     this.x = Math.sin(angle - Math.PI / 2)
     this.y = Math.cos(angle - Math.PI / 2)
     this.moveTarget()
   }
 
-  hit(arr: PIXI.Graphics[]) {
+  public hit(arr: PIXI.Graphics[]) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const f = this.hitTarget(arr)
   }
 
-  animation(t: number) {
+  public animation(t: number) {
     this.time = t
     if (Math.random() < 0.1) {
       this.shot(0x00ffff, 2)
