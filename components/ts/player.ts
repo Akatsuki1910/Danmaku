@@ -4,12 +4,16 @@ import Target from './target'
 export default class Player extends Target {
   private moveSpeed: number
   private slowMoveSpeed: number
-  public hitCount: number = 0
+  private hitCount: number = 0
   constructor(stage: PIXI.Container, renderer: PIXI.AbstractRenderer) {
     super(stage, renderer)
     this.moveSpeed = 3
     this.slowMoveSpeed = this.moveSpeed / 2
     this.createTarget(0xff0000, 2, 0x00ff00, 5)
+
+    this.x = renderer.width / 2
+    this.y = renderer.height - 50
+    this.moveTarget()
   }
 
   public move(m: { x: number; y: number }, shift: boolean) {

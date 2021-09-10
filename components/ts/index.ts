@@ -43,16 +43,16 @@ export default class Danmaku {
     this.time = 0
   }
 
-  public start() {
-    this.animation()
-  }
-
-  public get getTime() {
+  get getTime() {
     return this.time
   }
 
-  public get getHitCount() {
-    return this.player.hitCount
+  get getHP() {
+    return this.enemy.getHP
+  }
+
+  public start() {
+    this.animation()
   }
 
   private animation() {

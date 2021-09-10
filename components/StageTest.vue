@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     div TIME:{{time}}
-    div HITCOUNT:{{hitCount}}
+    div HP:{{hp}}
 </template>
 
 <script lang="ts">
@@ -14,16 +14,16 @@ export default class StageTest extends Vue {
 
   // data
   time: number = 0
-  hitCount: number = 0
+  hp: number = 0
 
   @Watch('d.getTime', { deep: true })
   countTime() {
     this.time = this.d!.getTime!
   }
 
-  @Watch('d.getHitCount', { deep: true })
-  countHit() {
-    this.hitCount = this.d!.getHitCount
+  @Watch('d.getHP', { deep: true })
+  countHP() {
+    this.hp = this.d!.getHP!
   }
 }
 </script>

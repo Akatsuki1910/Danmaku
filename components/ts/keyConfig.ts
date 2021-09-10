@@ -1,35 +1,18 @@
 import * as THREE from 'three'
 import Player from './player'
 
-const pressKeyArr = {
-  Up: false,
-  Left: false,
-  Down: false,
-  Right: false,
-  Z: false,
-  X: false,
+const pressKeyArr: { [key: string]: boolean } = {
+  ArrowUp: false,
+  ArrowLeft: false,
+  ArrowDown: false,
+  ArrowRight: false,
+  KeyZ: false,
+  KeyX: false,
   Shift: false,
 }
 
 export function keyPush(e: KeyboardEvent, keyPush: boolean) {
-  if (e.code === 'ArrowUp') {
-    pressKeyArr.Up = keyPush
-  }
-  if (e.code === 'ArrowLeft') {
-    pressKeyArr.Left = keyPush
-  }
-  if (e.code === 'ArrowDown') {
-    pressKeyArr.Down = keyPush
-  }
-  if (e.code === 'ArrowRight') {
-    pressKeyArr.Right = keyPush
-  }
-  if (e.code === 'KeyZ') {
-    pressKeyArr.Z = keyPush
-  }
-  if (e.code === 'KeyX') {
-    pressKeyArr.X = keyPush
-  }
+  pressKeyArr[e.code] = keyPush
   pressKeyArr.Shift = e.shiftKey
 }
 
@@ -37,26 +20,26 @@ export function pressKey(player: Player) {
   const shift = pressKeyArr.Shift
   let x = 0
   let y = 0
-  if (pressKeyArr.Up) {
+  if (pressKeyArr.ArrowUp) {
     y -= 1
   }
-  if (pressKeyArr.Left) {
+  if (pressKeyArr.ArrowLeft) {
     x -= 1
   }
-  if (pressKeyArr.Down) {
+  if (pressKeyArr.ArrowDown) {
     y += 1
   }
-  if (pressKeyArr.Right) {
+  if (pressKeyArr.ArrowRight) {
     x += 1
   }
   const m = new THREE.Vector2(x, y).normalize()
   const r = m.rotateAround(new THREE.Vector2(), 0)
   player.move({ x: r.x, y: r.y }, shift)
 
-  if (pressKeyArr.Z) {
+  if (pressKeyArr.KeyZ) {
     player.pushKey('z', shift)
   }
-  if (pressKeyArr.X) {
+  if (pressKeyArr.KeyX) {
     player.pushKey('x', shift)
   }
 }

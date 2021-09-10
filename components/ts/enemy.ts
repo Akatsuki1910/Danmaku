@@ -2,13 +2,20 @@ import * as PIXI from 'pixi.js'
 import Target from './target'
 
 export default class Enemy extends Target {
+  private hp: number
   constructor(stage: PIXI.Container, renderer: PIXI.AbstractRenderer) {
     super(stage, renderer)
-    this.createTarget(0xff0000, 2, 0x0000ff, 20)
+    this.createTarget(0xff0000, 4, 0x0000ff, 20)
 
     this.x = renderer.width / 2
     this.y = 50
     this.moveTarget()
+
+    this.hp = 2000
+  }
+
+  get getHP() {
+    return this.hp
   }
 
   public move(angle: number) {
@@ -20,6 +27,9 @@ export default class Enemy extends Target {
   public hit(arr: PIXI.Graphics[]) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const f = this.hitTarget(arr)
+    if (f) {
+      this.hp--
+    }
   }
 
   public animation(t: number) {
