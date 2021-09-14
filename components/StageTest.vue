@@ -2,6 +2,7 @@
   div
     div TIME:{{time}}
     div HP:{{hp}}
+    div PC:{{pc}}
 </template>
 
 <script lang="ts">
@@ -15,6 +16,7 @@ export default class StageTest extends Vue {
   // data
   time: number = 0
   hp: number = 0
+  pc: number = 0
 
   @Watch('d.getTime', { deep: true })
   countTime() {
@@ -24,6 +26,11 @@ export default class StageTest extends Vue {
   @Watch('d.getHP', { deep: true })
   countHP() {
     this.hp = this.d!.getHP!
+  }
+
+  @Watch('d.getPlayerCount', { deep: true })
+  playerCount() {
+    this.pc = this.d!.getPlayerCount!
   }
 }
 </script>

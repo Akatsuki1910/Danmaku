@@ -71,16 +71,26 @@ export default class Target {
     this.shotArr.push(shot)
   }
 
-  protected shotDestroy(i: number) {
+  protected outOfShot(i: number) {
     if (
       this.shotArr[i].y < -this.shotArr[i].height ||
       this.shotArr[i].y > this.renderer.height + this.shotArr[i].height ||
       this.shotArr[i].x < -this.shotArr[i].width ||
       this.shotArr[i].x > this.renderer.width + this.shotArr[i].width
     ) {
-      this.shotArr[i].destroy()
-      this.shotArr.splice(i, 1)
+      this.shotDestroy(i)
     }
+  }
+
+  protected shotDestroyAll(arr: PIXI.Graphics[] = this.shotArr) {
+    while (arr.length) {
+      this.shotDestroy(0, arr)
+    }
+  }
+
+  protected shotDestroy(i: number, arr: PIXI.Graphics[] = this.shotArr) {
+    arr[i].destroy()
+    arr.splice(i, 1)
   }
 
   protected hitTarget(arr: PIXI.Graphics[]) {

@@ -51,6 +51,10 @@ export default class Danmaku {
     return this.enemy.getHP
   }
 
+  get getPlayerCount() {
+    return this.player.playerCount
+  }
+
   public start() {
     this.animation()
   }

@@ -5,7 +5,7 @@ export default class Enemy extends Target {
   private hp: number
   constructor(stage: PIXI.Container, renderer: PIXI.AbstractRenderer) {
     super(stage, renderer)
-    this.createTarget(0xff0000, 4, 0x0000ff, 20)
+    this.createTarget(0xff0000, 10, 0x0000ff, 20)
 
     this.x = renderer.width / 2
     this.y = 50
@@ -38,8 +38,8 @@ export default class Enemy extends Target {
       this.shot(0x00ffff, 2)
     }
     for (let i = 0; i < this.shotArr.length; i++) {
-      this.shotArr[i].y += 5
-      this.shotDestroy(i)
+      this.shotArr[i].y += 2
+      this.outOfShot(i)
     }
   }
 }
