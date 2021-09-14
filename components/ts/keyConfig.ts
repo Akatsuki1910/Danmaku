@@ -6,8 +6,32 @@ const pressKeyArr: { [key: string]: boolean } = {
   ArrowLeft: false,
   ArrowDown: false,
   ArrowRight: false,
-  KeyZ: false,
+  KeyA: false,
+  KeyB: false,
+  KeyC: false,
+  KeyD: false,
+  KeyE: false,
+  KeyF: false,
+  KeyG: false,
+  KeyH: false,
+  KeyI: false,
+  KeyJ: false,
+  KeyK: false,
+  KeyL: false,
+  KeyM: false,
+  KeyN: false,
+  KeyO: false,
+  KeyP: false,
+  KeyQ: false,
+  KeyR: false,
+  KeyS: false,
+  KeyT: false,
+  KeyU: false,
+  KeyV: false,
+  KeyW: false,
   KeyX: false,
+  KeyY: false,
+  KeyZ: false,
   Shift: false,
 }
 
@@ -38,8 +62,5 @@ export function pressKey(player: Player) {
 
   if (pressKeyArr.KeyZ) {
     player.pushKey('z', shift)
-  }
-  if (pressKeyArr.KeyX) {
-    player.pushKey('x', shift)
   }
 }
