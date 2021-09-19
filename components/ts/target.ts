@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js'
+import Config from './config'
 
 export default class Target {
   protected x: number
@@ -9,18 +10,21 @@ export default class Target {
   }
 
   protected stage: PIXI.Container
-  protected renderer: PIXI.AbstractRenderer
   protected time: number
   public shotArr: PIXI.Graphics[]
 
-  constructor(stage: PIXI.Container, renderer: PIXI.AbstractRenderer) {
+  constructor(stage: PIXI.Container) {
     this.x = 0
     this.y = 0
     this.target = { hitPoint: null, texture: null }
     this.stage = stage
-    this.renderer = renderer
     this.time = 0
     this.shotArr = []
+  }
+
+  protected alpha(num: number) {
+    this.target.hitPoint!.alpha = num
+    this.target.texture!.alpha = num
   }
 
   // hitpoint color
@@ -74,9 +78,9 @@ export default class Target {
   protected outOfShot(i: number) {
     if (
       this.shotArr[i].y < -this.shotArr[i].height ||
-      this.shotArr[i].y > this.renderer.height + this.shotArr[i].height ||
+      this.shotArr[i].y > Config.height + this.shotArr[i].height ||
       this.shotArr[i].x < -this.shotArr[i].width ||
-      this.shotArr[i].x > this.renderer.width + this.shotArr[i].width
+      this.shotArr[i].x > Config.width + this.shotArr[i].width
     ) {
       this.shotDestroy(i)
     }

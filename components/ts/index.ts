@@ -1,20 +1,20 @@
 // import
 import * as PIXI from 'pixi.js'
-import Player from './player'
-import Enemy from './enemy'
-import { keyPush, pressKey } from './keyConfig'
+import { keyPush } from './keyConfig'
+import Game from './game'
+import Option from './option'
 
 // default
 export default class Danmaku {
   private stage: PIXI.Container
   private renderer: PIXI.AbstractRenderer
-  private enemy: Enemy
-  private player: Player
   private time: number
+  private game: Game
+  private startObj!: Option
 
   constructor(ele: HTMLElement) {
-    const width = 200 // window.innerWidth
-    const height = 200 // window.innerHeight
+    const width = window.innerWidth
+    const height = window.innerHeight
     this.stage = new PIXI.Container()
     this.renderer = PIXI.autoDetectRenderer({
       width,
@@ -24,12 +24,12 @@ export default class Danmaku {
       // transparent: true,
     })
     ele.appendChild(this.renderer.view)
+
+    this.game = new Game(this.stage)
+
     window.onresize = function () {
       location.reload()
     }
-
-    this.enemy = new Enemy(this.stage, this.renderer)
-    this.player = new Player(this.stage, this.renderer)
 
     window.onload = () => {
       document.body.addEventListener('keyup', (e) => {
@@ -43,29 +43,26 @@ export default class Danmaku {
     this.time = 0
   }
 
-  get getTime() {
-    return this.time
+  private title() {
+    this.startObj = new Option(this.stage, 'start')
+    this.startObj.textObj!.interactive = true
+    this.startObj.textObj!.on('mousedown', () => this.gameStart())
   }
 
-  get getHP() {
-    return this.enemy.getHP
-  }
-
-  get getPlayerCount() {
-    return this.player.playerCount
+  private gameStart() {
+    this.startObj.textObj!.destroy()
+    this.game.start()
   }
 
   public start() {
+    this.title()
     this.animation()
   }
 
   private animation() {
     this.renderer.render(this.stage)
-    pressKey(this.player)
-    this.player.animation(this.time)
-    this.enemy.animation(this.time)
-    this.player.hit(this.enemy.shotArr)
-    this.enemy.hit(this.player.shotArr)
+
+    this.game.animation(this.time)
 
     this.time++
     requestAnimationFrame(this.animation.bind(this))

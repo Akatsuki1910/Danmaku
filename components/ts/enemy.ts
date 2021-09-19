@@ -1,13 +1,14 @@
 import * as PIXI from 'pixi.js'
 import Target from './target'
+import Config from './config'
 
 export default class Enemy extends Target {
   private hp: number
-  constructor(stage: PIXI.Container, renderer: PIXI.AbstractRenderer) {
-    super(stage, renderer)
+  constructor(stage: PIXI.Container) {
+    super(stage)
     this.createTarget(0xff0000, 10, 0x0000ff, 20)
 
-    this.x = renderer.width / 2
+    this.x = Config.width / 2
     this.y = 50
     this.moveTarget()
 
@@ -25,7 +26,6 @@ export default class Enemy extends Target {
   }
 
   public hit(arr: PIXI.Graphics[]) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const f = this.hitTarget(arr)
     if (f) {
       this.hp--

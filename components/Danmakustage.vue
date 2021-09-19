@@ -1,7 +1,6 @@
 <template lang="pug">
   div
     div(ref="danmaku")
-    StageTest(v-bind:d='d')
 </template>
 
 <script lang="ts">

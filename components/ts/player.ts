@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import Target from './target'
+import Config from './config'
 
 export default class Player extends Target {
   private moveSpeed: number
@@ -7,15 +8,17 @@ export default class Player extends Target {
   private fpX: number
   private fpY: number
   public playerCount: number
-  constructor(stage: PIXI.Container, renderer: PIXI.AbstractRenderer) {
-    super(stage, renderer)
+  public stealth: boolean
+  constructor(stage: PIXI.Container) {
+    super(stage)
     this.moveSpeed = 3
     this.slowMoveSpeed = this.moveSpeed / 2
     this.createTarget(0xff0000, 2, 0x00ff00, 5)
     this.playerCount = 3
+    this.stealth = true
 
-    this.fpX = renderer.width / 2
-    this.fpY = renderer.height - 50
+    this.fpX = Config.width / 2
+    this.fpY = Config.height - 50
 
     this.x = this.fpX
     this.y = this.fpY
@@ -45,13 +48,35 @@ export default class Player extends Target {
 
   public hit(arr: PIXI.Graphics[]) {
     const f = this.hitTarget(arr)
-    if (f) {
-      this.playerCount--
-      this.shotDestroyAll()
-      this.shotDestroyAll(arr)
-      this.x = this.fpX
-      this.y = this.fpY
+    if (this.stealth) {
+      if (f) {
+        this.playerCount--
+        this.shotDestroyAll()
+        this.shotDestroyAll(arr)
+
+        this.stealth = false
+        this.x = this.fpX
+        this.y = this.fpY
+        this.target.texture!.alpha = 0
+        this.destroyed()
+      }
     }
+  }
+
+  public destroyed() {
+    const step = 0.1
+    let time = 0
+    const id = setInterval(() => {
+      const x = (time + Math.sin(4 * time)) / 4
+      if (x > 1) {
+        this.alpha(1)
+        this.stealth = true
+        clearInterval(id)
+      } else {
+        this.alpha(x)
+        time += step
+      }
+    }, 50)
   }
 
   public animation(t: number) {
