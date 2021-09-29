@@ -6,26 +6,27 @@ import Option from './option'
 
 // default
 export default class Danmaku {
-  private stage: PIXI.Container
   private renderer: PIXI.AbstractRenderer
   private time: number
   private game: Game
   private startObj!: Option
+  private titleStage: PIXI.Container | null
 
   constructor(ele: HTMLElement) {
     const width = window.innerWidth
     const height = window.innerHeight
-    this.stage = new PIXI.Container()
+
+    this.titleStage = new PIXI.Container()
     this.renderer = PIXI.autoDetectRenderer({
       width,
       height,
       resolution: 1,
       antialias: true,
-      // transparent: true,
+      backgroundColor: 0x0000ff,
     })
     ele.appendChild(this.renderer.view)
 
-    this.game = new Game(this.stage)
+    this.game = new Game(this.renderer)
 
     window.onresize = function () {
       location.reload()
@@ -44,13 +45,19 @@ export default class Danmaku {
   }
 
   private title() {
-    this.startObj = new Option(this.stage, 'start')
+    const square = new PIXI.Graphics()
+    square.beginFill(0xff00ff)
+    square.drawRect(0, 0, this.renderer.width, this.renderer.height)
+    square.endFill()
+    this.titleStage!.addChild(square)
+    this.startObj = new Option(this.titleStage!, 'start')
     this.startObj.textObj!.interactive = true
     this.startObj.textObj!.on('mousedown', () => this.gameStart())
   }
 
   private gameStart() {
-    this.startObj.textObj!.destroy()
+    this.titleStage!.destroy(true)
+    this.titleStage = null
     this.game.start()
   }
 
@@ -60,10 +67,10 @@ export default class Danmaku {
   }
 
   private animation() {
-    this.renderer.render(this.stage)
-
     this.game.animation(this.time)
-
+    if (this.titleStage) {
+      this.renderer.render(this.titleStage)
+    }
     this.time++
     requestAnimationFrame(this.animation.bind(this))
   }

@@ -29,6 +29,8 @@ export default class Player extends Target {
     const s = shift ? this.slowMoveSpeed : this.moveSpeed
     this.x += s * m.x
     this.y += s * m.y
+    this.x = this.x > 0 ? (Config.width > this.x ? this.x : Config.width) : 0
+    this.y = this.y > 0 ? (Config.height > this.y ? this.y : Config.height) : 0
     this.moveTarget()
   }
 
