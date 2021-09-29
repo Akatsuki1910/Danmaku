@@ -1,15 +1,14 @@
 // import
 import * as PIXI from 'pixi.js'
-import { keyPush } from './keyConfig'
 import Game from './game'
-import Option from './option'
+import { keyPush } from './keyConfig'
+import textAdd from './option'
 
 // default
 export default class Danmaku {
   private renderer: PIXI.AbstractRenderer
   private time: number
   private game: Game
-  private startObj!: Option
   private titleStage: PIXI.Container | null
 
   constructor(ele: HTMLElement) {
@@ -22,7 +21,6 @@ export default class Danmaku {
       height,
       resolution: 1,
       antialias: true,
-      backgroundColor: 0x0000ff,
     })
     ele.appendChild(this.renderer.view)
 
@@ -50,9 +48,11 @@ export default class Danmaku {
     square.drawRect(0, 0, this.renderer.width, this.renderer.height)
     square.endFill()
     this.titleStage!.addChild(square)
-    this.startObj = new Option(this.titleStage!, 'start')
-    this.startObj.textObj!.interactive = true
-    this.startObj.textObj!.on('mousedown', () => this.gameStart())
+
+    const startObj = textAdd('START')
+    this.titleStage!.addChild(startObj)
+    startObj.interactive = true
+    startObj.on('mousedown', () => this.gameStart())
   }
 
   private gameStart() {

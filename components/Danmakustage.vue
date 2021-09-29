@@ -7,7 +7,7 @@
 import { Vue, Component, Ref } from 'nuxt-property-decorator'
 import Danmaku from './ts/index'
 @Component({})
-export default class Danmakustage extends Vue {
+export default class DanmakuStage extends Vue {
   @Ref() readonly danmaku!: HTMLDivElement
 
   // data

@@ -1,9 +1,10 @@
 // import
 import * as PIXI from 'pixi.js'
-import Player from './player'
+import Config from './config'
 import Enemy from './enemy'
 import { pressKey } from './keyConfig'
-import Config from './config'
+import textAdd from './option'
+import Player from './player'
 
 // default
 export default class Game {
@@ -14,6 +15,8 @@ export default class Game {
   private renderer: PIXI.AbstractRenderer
   private bgStage: PIXI.Container
   private stage: PIXI.Container
+  private hp: PIXI.Text
+  private playerCount: PIXI.Text
 
   constructor(renderer: PIXI.AbstractRenderer) {
     this.renderer = renderer
@@ -23,6 +26,22 @@ export default class Game {
 
     this.stage.addChild(this.bgStage)
     this.stage.addChild(this.danmakuStage)
+
+    // bg
+    const square2 = new PIXI.Graphics()
+    square2.beginFill(0x7700ff)
+    square2.drawRect(0, 0, this.renderer.width, this.renderer.height)
+    square2.endFill()
+    this.bgStage.addChild(square2)
+
+    const hpText = textAdd('HP', Config.width, 0)
+    this.bgStage.addChild(hpText)
+    this.hp = textAdd(0, Config.width + 200, 0)
+    this.bgStage.addChild(this.hp)
+    const playerCountText = textAdd('COUNT', Config.width, 30)
+    this.bgStage.addChild(playerCountText)
+    this.playerCount = textAdd(0, Config.width + 200, 30)
+    this.bgStage.addChild(this.playerCount)
   }
 
   public start() {
@@ -39,12 +58,6 @@ export default class Game {
 
     this.enemy = new Enemy(this.danmakuStage)
     this.player = new Player(this.danmakuStage)
-
-    const square2 = new PIXI.Graphics()
-    square2.beginFill(0x7700ff)
-    square2.drawRect(0, 0, this.renderer.width, this.renderer.height)
-    square2.endFill()
-    this.bgStage.addChild(square2)
   }
 
   public animation(time: number) {
@@ -55,6 +68,9 @@ export default class Game {
       this.enemy!.animation(time)
       this.player!.hit(this.enemy!.shotArr)
       this.enemy!.hit(this.player!.shotArr)
+
+      this.hp.text = String(this.enemy!.getHP)
+      this.playerCount.text = String(this.player!.playerCount)
     }
   }
 }

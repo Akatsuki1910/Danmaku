@@ -1,14 +1,15 @@
 import * as PIXI from 'pixi.js'
-import Target from './target'
 import Config from './config'
+import Target from './target'
 
 export default class Player extends Target {
   private moveSpeed: number
   private slowMoveSpeed: number
   private fpX: number
   private fpY: number
+  private stealth: boolean
   public playerCount: number
-  public stealth: boolean
+
   constructor(stage: PIXI.Container) {
     super(stage)
     this.moveSpeed = 3

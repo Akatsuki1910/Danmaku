@@ -1,9 +1,10 @@
 import * as PIXI from 'pixi.js'
-import Target from './target'
 import Config from './config'
+import Target from './target'
 
 export default class Enemy extends Target {
   private hp: number
+
   constructor(stage: PIXI.Container) {
     super(stage)
     this.createTarget(0xff0000, 10, 0x0000ff, 20)
