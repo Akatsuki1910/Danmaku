@@ -1,43 +1,60 @@
 {
   "name": "danmaku",
   "version": "1.0.0",
-  "description": "**canvasとかやってられるか**<br> ~~canvasを使ってると言えない~~<br> <br> **fu\\*k IE**",
-  "main": "main.js",
+  "private": true,
   "scripts": {
-    "start": "webpack -w",
-    "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "nuxt build",
+    "dev": "nuxt",
+    "fix": "yarn lint --fix",
+    "generate": "nuxt generate",
+    "lint": "yarn lint:ts && yarn lint:style",
+    "lint:style": "stylelint \"**/*.{vue,css}\" --ignore-path .gitignore",
+    "lint:ts": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
+    "prepare": "husky install",
+    "start": "nuxt start"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Akatsuki1910/Danmaku.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Akatsuki1910/Danmaku/issues"
-  },
-  "homepage": "https://github.com/Akatsuki1910/Danmaku#readme",
-  "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "babel-loader": "^8.2.2",
-    "css-loader": "^5.0.1",
-    "file-loader": "^6.2.0",
-    "html-loader": "^1.3.2",
-    "html-webpack-plugin": "^4.5.0",
-    "mini-css-extract-plugin": "^1.3.3",
-    "node-sass": "^5.0.0",
-    "sass": "^1.32.0",
-    "sass-loader": "^10.1.0",
-    "style-loader": "^2.0.0",
-    "url-loader": "^4.1.1",
-    "webpack": "^5.11.1",
-    "webpack-cli": "^4.3.1"
+  "lint-staged": {
+    "*.{css,vue}": "yarn lint:style",
+    "*.{ts,vue}": "yarn lint:ts"
   },
   "dependencies": {
-    "jquery": "^3.5.1",
-    "pixi.js": "^5.3.7",
-    "three": "^0.124.0"
+    "@nuxtjs/pwa": "^3.3.5",
+    "core-js": "^3.18.1",
+    "nuxt": "^2.15.8",
+    "sass-loader": "10.2.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.15.4",
+    "@nuxt/types": "^2.15.8",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/eslint-config-typescript": "^6.0.1",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/stylelint-module": "^4.0.0",
+    "@types/three": "^0.132.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-vue": "^7.18.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "nuxt-property-decorator": "^2.9.1",
+    "pixi.js": "^6.1.3",
+    "prettier": "^2.4.1",
+    "pug": "3.0.2",
+    "pug-loader": "^2.4.0",
+    "pug-plain-loader": "^1.1.0",
+    "sass": "^1.42.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-recess-order": "^2.5.0",
+    "stylelint-config-recommended-scss": "^4.3.0",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-prettier": "^1.2.0",
+    "stylelint-scss": "^3.21.0",
+    "three": "^0.132.2"
+  },
+  "engines": {
+    "npm": "npmではなくyarnを使用してください"
   }
 }
