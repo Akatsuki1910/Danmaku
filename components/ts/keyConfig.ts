@@ -32,16 +32,20 @@ const pressKeyArr: { [key: string]: boolean } = {
   KeyX: false,
   KeyY: false,
   KeyZ: false,
-  Shift: false,
+  ShiftLeft: false,
+  Escape: false,
+}
+
+export function getPressKey() {
+  return pressKeyArr
 }
 
 export function keyPush(e: KeyboardEvent, keyPush: boolean) {
   pressKeyArr[e.code] = keyPush
-  pressKeyArr.Shift = e.shiftKey
 }
 
 export function pressKey(player: Player) {
-  const shift = pressKeyArr.Shift
+  const shift = pressKeyArr.ShiftLeft
   let x = 0
   let y = 0
   if (pressKeyArr.ArrowUp) {
