@@ -11,7 +11,7 @@ export default class Danmaku {
   private renderer: PIXI.AbstractRenderer
   private time: number = 0
   private titleStage: PIXI.Container | undefined
-  private danmakuStage: PIXI.Container
+  private danmakuStage: PIXI.Container | undefined
   private enemy: Enemy | undefined
   private player: Player | undefined
   private gameStartFlg: boolean = false
@@ -39,12 +39,14 @@ export default class Danmaku {
     ele.appendChild(this.renderer.view)
 
     this.stage = new PIXI.Container()
-    this.danmakuStage = new PIXI.Container()
+    this.stage.sortableChildren = true
+
     this.bgStage = new PIXI.Container()
+    this.bgStage.zIndex = 1
     this.optionStage = new PIXI.Container()
+    this.optionStage.zIndex = 999
 
     this.stage.addChild(this.bgStage)
-    this.stage.addChild(this.danmakuStage)
     this.stage.addChild(this.optionStage)
 
     this.stageMaster.addChild(this.stage)
@@ -112,7 +114,10 @@ export default class Danmaku {
   }
 
   private backToTitle() {
-    this.stage.alpha = 0
+    this.danmakuStage!.destroy(true)
+    this.stageMaster.removeChild(this.danmakuStage!)
+    this.danmakuStage = undefined
+
     this.gameStartFlg = false
     this.toggleEscape = false
     this.pushEscape = false
@@ -121,6 +126,11 @@ export default class Danmaku {
   }
 
   private boadSetting() {
+    this.danmakuStage = new PIXI.Container()
+    this.danmakuStage.zIndex = 2
+    this.stage.addChild(this.danmakuStage)
+    this.stage.sortChildren()
+
     const square = new PIXI.Graphics()
     square.beginFill(0xf0f000)
     square.drawRect(0, 0, Config.width, Config.height)
@@ -139,6 +149,8 @@ export default class Danmaku {
     this.titleStage!.destroy(true)
     this.stageMaster.removeChild(this.titleStage!)
     this.titleStage = undefined
+
+    this.boadSetting()
 
     this.stage.alpha = 1
     this.gameStartFlg = true
