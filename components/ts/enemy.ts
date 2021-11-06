@@ -32,7 +32,8 @@ export default class Enemy extends Target {
       this.hp--
     }
 
-    if (this.hp === 0) {
+    if (this.hp <= 0) {
+      this.hp = 0
       this.death()
     }
   }

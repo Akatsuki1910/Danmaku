@@ -1,9 +1,9 @@
 // import
 import * as PIXI from 'pixi.js'
-import { keyPush, pressKey, getPressKey } from './keyConfig'
-import textAdd from './option'
 import Config from './config'
 import Enemy from './enemy'
+import { getPressKey, keyPush, pressKey } from './keyConfig'
+import textAdd from './option'
 import Player from './player'
 
 // default
