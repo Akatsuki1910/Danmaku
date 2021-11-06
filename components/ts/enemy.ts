@@ -13,7 +13,7 @@ export default class Enemy extends Target {
     this.y = 50
     this.moveTarget()
 
-    this.hp = 2000
+    this.hp = 10
   }
 
   get getHP() {
@@ -31,6 +31,19 @@ export default class Enemy extends Target {
     if (f) {
       this.hp--
     }
+
+    if (this.hp === 0) {
+      this.death()
+    }
+  }
+
+  private death() {
+    this.stage.removeChild(this.target.hitPoint!)
+    this.stage.removeChild(this.target.texture!)
+    // this.target.hitPoint!.destroy()
+    // this.target.texture!.destroy()
+    this.deathFlag = true
+    this.shotDestroyAll()
   }
 
   public animation(t: number) {

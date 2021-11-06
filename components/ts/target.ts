@@ -11,6 +11,7 @@ export default class Target {
 
   protected stage: PIXI.Container
   protected time: number
+  protected deathFlag: boolean = false
   public shotArr: PIXI.Graphics[]
 
   constructor(stage: PIXI.Container) {
@@ -99,15 +100,18 @@ export default class Target {
 
   protected hitTarget(arr: PIXI.Graphics[]) {
     let hitFlag = false
-    for (let i = 0; i < arr.length; i++) {
-      if (
-        Math.sqrt(
-          Math.pow(this.x - arr[i].x, 2) + Math.pow(this.y - arr[i].y, 2),
-        ) <=
-        (arr[i].width + this.target.hitPoint!.width) / 2
-      ) {
-        hitFlag = true
-        break
+
+    if (!this.deathFlag) {
+      for (let i = 0; i < arr.length; i++) {
+        if (
+          Math.sqrt(
+            Math.pow(this.x - arr[i].x, 2) + Math.pow(this.y - arr[i].y, 2),
+          ) <=
+          (arr[i].width + this.target.hitPoint!.width) / 2
+        ) {
+          hitFlag = true
+          break
+        }
       }
     }
 
