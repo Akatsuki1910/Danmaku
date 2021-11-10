@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import Config from './config'
+import Config from '../config'
 
 export default class Target {
   protected x: number

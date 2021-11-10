@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import Config from './config'
+import Config from '../config'
 import Target from './target'
 
 export default class Enemy extends Target {

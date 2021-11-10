@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import Player from './player'
+import Player from './Target/player'
 
 const pressKeyArr: { [key: string]: boolean } = {
   ArrowUp: false,

@@ -1,11 +1,11 @@
 // import
 import * as PIXI from 'pixi.js'
 import Config from '../config'
-import Enemy from '../enemy'
 import { getPressKey, pressKey } from '../keyConfig'
 import textAdd from '../option'
-import Player from '../player'
 import { titleScene } from '../stageManager'
+import Enemy from '../Target/enemy'
+import Player from '../Target/player'
 
 export default class Game {
   bgStage: PIXI.Container
