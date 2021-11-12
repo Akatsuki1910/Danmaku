@@ -2,37 +2,39 @@ import * as PIXI from 'pixi.js'
 import Game from './Danmaku/game'
 import Title from './Title/title'
 
-let stage: PIXI.Container
-let stageMaster: PIXI.Container
-let instance: any
+export default class StageManager {
+  private static stage: PIXI.Container | undefined
+  private static stageMaster: PIXI.Container | undefined
+  private static instance: any
 
-export function setStageMaster(stage: PIXI.Container) {
-  stageMaster = stage
-}
+  static setStageMaster(stage: PIXI.Container) {
+    this.stageMaster = stage
+  }
 
-export function getStageMaster() {
-  return stageMaster
-}
+  static getStageMaster() {
+    return this.stageMaster!
+  }
 
-export function titleScene() {
-  sceneChangeInit()
-  instance = new Title(window.innerWidth, window.innerHeight)
-  stage = instance.stage
-  stageMaster.addChild(stage)
-}
+  static titleScene() {
+    this.sceneChangeInit()
+    this.instance = new Title(window.innerWidth, window.innerHeight)
+    this.stage = this.instance.stage
+    this.stageMaster?.addChild(this.stage!)
+  }
 
-export function gameScene() {
-  sceneChangeInit()
-  instance = new Game(window.innerWidth, window.innerHeight)
-  stage = instance.stage
-  stageMaster.addChild(stage)
-}
+  static gameScene() {
+    this.sceneChangeInit()
+    this.instance = new Game(window.innerWidth, window.innerHeight)
+    this.stage = this.instance.stage
+    this.stageMaster?.addChild(this.stage!)
+  }
 
-function sceneChangeInit() {
-  stage?.destroy(true)
-  stageMaster.removeChild(stage)
-}
+  static sceneChangeInit() {
+    this.stage?.destroy(true)
+    this.stageMaster?.removeChild(this.stage!)
+  }
 
-export function animation(time: number) {
-  instance?.animation(time)
+  static animation(time: number) {
+    this.instance?.animation(time)
+  }
 }

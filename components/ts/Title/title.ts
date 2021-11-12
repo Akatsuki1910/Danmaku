@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js'
 import textAdd from '../option'
-import { gameScene } from '../stageManager'
+import StageManager from '../stageManager'
 
 export default class Title {
   stage: PIXI.Container
@@ -20,7 +20,7 @@ export default class Title {
   }
 
   gameStart() {
-    gameScene()
+    StageManager.gameScene()
   }
 
   animation(_time: number) {}

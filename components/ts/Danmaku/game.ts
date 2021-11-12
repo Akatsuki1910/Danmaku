@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js'
 import Config from '../config'
 import { getPressKey, pressKey } from '../keyConfig'
 import textAdd from '../option'
-import { titleScene } from '../stageManager'
+import StageManager from '../stageManager'
 import Enemy from '../Target/enemy'
 import Player from '../Target/player'
 
@@ -80,7 +80,7 @@ export default class Game {
   }
 
   backToTitle(): void {
-    titleScene()
+    StageManager.titleScene()
   }
 
   animation(time: number) {

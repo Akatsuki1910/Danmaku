@@ -1,12 +1,7 @@
 // import
 import * as PIXI from 'pixi.js'
 import { keyPush } from './keyConfig'
-import {
-  animation,
-  getStageMaster,
-  setStageMaster,
-  titleScene,
-} from './stageManager'
+import StageManager from './stageManager'
 
 // default
 export default class Danmaku {
@@ -27,8 +22,8 @@ export default class Danmaku {
     })
     ele.appendChild(this.renderer.view)
 
-    setStageMaster(this.stageMaster)
-    titleScene()
+    StageManager.setStageMaster(this.stageMaster)
+    StageManager.titleScene()
 
     window.onresize = function () {
       location.reload()
@@ -49,8 +44,8 @@ export default class Danmaku {
   }
 
   private animation() {
-    this.renderer.render(getStageMaster())
-    animation(this.time)
+    this.renderer.render(StageManager.getStageMaster())
+    StageManager.animation(this.time)
 
     this.time++
     requestAnimationFrame(this.animation.bind(this))
