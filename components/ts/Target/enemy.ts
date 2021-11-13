@@ -20,6 +20,10 @@ export default class Enemy extends Target {
     return this.hp
   }
 
+  get getDeathFlag() {
+    return this.deathFlag
+  }
+
   public move(angle: number) {
     this.x = Math.sin(angle - Math.PI / 2)
     this.y = Math.cos(angle - Math.PI / 2)

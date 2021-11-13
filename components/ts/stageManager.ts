@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js'
 import Game from './Danmaku/game'
+import Ending from './Ending/ending'
 import Title from './Title/title'
 
 export default class StageManager {
@@ -25,6 +26,13 @@ export default class StageManager {
   static gameScene() {
     this.sceneChangeInit()
     this.instance = new Game(window.innerWidth, window.innerHeight)
+    this.stage = this.instance.stage
+    this.stageMaster?.addChild(this.stage!)
+  }
+
+  static endingScene() {
+    this.sceneChangeInit()
+    this.instance = new Ending(window.innerWidth, window.innerHeight)
     this.stage = this.instance.stage
     this.stageMaster?.addChild(this.stage!)
   }

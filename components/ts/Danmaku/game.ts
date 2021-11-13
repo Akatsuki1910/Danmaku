@@ -104,6 +104,10 @@ export default class Game {
         this.hp.text = String(this.enemy!.getHP)
         this.playerCount.text = String(this.player!.playerCount)
       }
+
+      if (this.player.playerCount === 0 || this.enemy.getDeathFlag) {
+        StageManager.endingScene()
+      }
     }
   }
 }
