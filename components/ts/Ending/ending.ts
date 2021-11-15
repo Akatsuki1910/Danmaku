@@ -1,27 +1,27 @@
 import * as PIXI from 'pixi.js'
 import textAdd from '../option'
+import SceneInit from '../sceneInit'
 import StageManager from '../stageManager'
 
-export default class Ending {
-  stage: PIXI.Container
+export default class Ending extends SceneInit {
   constructor(width: number, height: number) {
-    this.stage = new PIXI.Container()
+    super()
 
-    const square = new PIXI.Graphics()
-    square.beginFill(0xff00ff)
-    square.drawRect(0, 0, width, height)
-    square.endFill()
-    this.stage!.addChild(square)
+    const bg = new PIXI.Graphics()
+    bg.beginFill(0xff00ff)
+    bg.drawRect(0, 0, width, height)
+    bg.endFill()
+    this.stage.addChild(bg)
 
     const startObj = textAdd('TO START')
-    this.stage!.addChild(startObj)
+    this.stage.addChild(startObj)
     startObj.interactive = true
-    startObj.on('mousedown', () => this.gameStart())
+    startObj.on('mousedown', () => this.toTitleScene())
   }
 
-  gameStart() {
+  private toTitleScene() {
     StageManager.titleScene()
   }
 
-  animation(_time: number) {}
+  public animation(_time: number) {}
 }

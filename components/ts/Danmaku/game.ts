@@ -1,37 +1,38 @@
 // import
 import * as PIXI from 'pixi.js'
 import Config from '../config'
-import { getPressKey, pressKey } from '../keyConfig'
+import KeyConfig from '../keyConfig'
 import textAdd from '../option'
+import SceneInit from '../sceneInit'
 import StageManager from '../stageManager'
 import Enemy from '../Target/enemy'
 import Player from '../Target/player'
 
-export default class Game {
-  bgStage: PIXI.Container
-  optionStage: PIXI.Container
-  hp: PIXI.Text
-  playerCount: PIXI.Text
-  op: PIXI.Graphics
-  danmakuStage: PIXI.Container | undefined
-  stage: PIXI.Container
-  enemy: Enemy
-  player: Player
+export default class Game extends SceneInit {
+  private bgStage: PIXI.Container
+  private optionStage: PIXI.Container
+  private hp: PIXI.Text
+  private playerCount: PIXI.Text
+  private op: PIXI.Graphics
+  private danmakuStage: PIXI.Container | undefined
+  private enemy: Enemy
+  private player: Player
   private gameStartFlg: boolean = true
   private toggleEscape: boolean = false
   private pushEscape: boolean = false
+
   constructor(width: number, height: number) {
+    super()
     this.bgStage = new PIXI.Container()
     this.bgStage.zIndex = 1
     this.optionStage = new PIXI.Container()
     this.optionStage.zIndex = 999
 
-    // bg
-    const square2 = new PIXI.Graphics()
-    square2.beginFill(0x7700ff)
-    square2.drawRect(0, 0, width, height)
-    square2.endFill()
-    this.bgStage.addChild(square2)
+    const bg = new PIXI.Graphics()
+    bg.beginFill(0x7700ff)
+    bg.drawRect(0, 0, width, height)
+    bg.endFill()
+    this.bgStage.addChild(bg)
 
     const hpText = textAdd('HP', Config.width, 0)
     this.bgStage.addChild(hpText)
@@ -58,7 +59,6 @@ export default class Game {
     this.danmakuStage = new PIXI.Container()
     this.danmakuStage.zIndex = 2
 
-    this.stage = new PIXI.Container()
     this.stage.sortableChildren = true
     this.stage.addChild(this.danmakuStage)
     this.stage.addChild(this.optionStage)
@@ -79,23 +79,23 @@ export default class Game {
     this.player = new Player(this.danmakuStage)
   }
 
-  backToTitle(): void {
+  private backToTitle(): void {
     StageManager.titleScene()
   }
 
-  animation(time: number) {
+  public animation(time: number) {
     if (this.gameStartFlg) {
-      if (getPressKey().Escape && !this.pushEscape) {
+      if (KeyConfig.getPressKey().Escape && !this.pushEscape) {
         this.pushEscape = true
         this.toggleEscape = !this.toggleEscape
 
         this.optionStage.alpha = this.toggleEscape ? 1 : 0
-      } else if (!getPressKey().Escape) {
+      } else if (!KeyConfig.getPressKey().Escape) {
         this.pushEscape = false
       }
 
       if (!this.toggleEscape) {
-        pressKey(this.player!)
+        KeyConfig.pressKey(this.player!)
         this.player!.animation(time)
         this.enemy!.animation(time)
         this.player!.hit(this.enemy!.shotArr)

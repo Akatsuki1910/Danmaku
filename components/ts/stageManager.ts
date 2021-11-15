@@ -1,12 +1,13 @@
 import * as PIXI from 'pixi.js'
 import Game from './Danmaku/game'
 import Ending from './Ending/ending'
+import SceneInit from './sceneInit'
 import Title from './Title/title'
 
 export default class StageManager {
   private static stage: PIXI.Container | undefined
   private static stageMaster: PIXI.Container | undefined
-  private static instance: any
+  private static instance: SceneInit
 
   static setStageMaster(stage: PIXI.Container) {
     this.stageMaster = stage

@@ -1,6 +1,6 @@
 // import
 import * as PIXI from 'pixi.js'
-import { keyPush } from './keyConfig'
+import KeyConfig from './keyConfig'
 import StageManager from './stageManager'
 
 // default
@@ -31,10 +31,10 @@ export default class Danmaku {
 
     window.onload = () => {
       document.body.addEventListener('keyup', (e) => {
-        keyPush(e, false)
+        KeyConfig.keyPush(e, false)
       })
       document.body.addEventListener('keydown', (e) => {
-        keyPush(e, true)
+        KeyConfig.keyPush(e, true)
       })
     }
   }
